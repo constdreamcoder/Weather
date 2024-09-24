@@ -8,21 +8,33 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var text: String = ""
+    
+    @State private var searchText: String = ""
+    
+    var filteredCityList: [City] {
+        City.loadCityList().filter { $0.name.hasPrefix(searchText) || searchText == "" }
+    }
+    
     var body: some View {
         VStack {
-            SearchBar(text: $text)
+            SearchBar(text: $searchText)
                 .padding(.horizontal, 16)
             
-            List(0..<20) { _ in
-                VStack(alignment: .leading) {
-                    Text("Seoul")
-                        .fontWeight(.bold)
-                    Text("KR")
+            List {
+                ForEach(filteredCityList, id: \.id) { city in
+                    Button(action: {
+                        print(city.name)
+                    }, label: {
+                        VStack(alignment: .leading) {
+                            Text(city.name)
+                                .fontWeight(.bold)
+                            Text(city.country)
+                        }
+                        .foregroundStyle(.white)
+                    })
+                    .listRowBackground(Color.blue.opacity(0))
+                    .listRowSeparatorTint(.white)
                 }
-                .foregroundStyle(.white)
-                .listRowBackground(Color.blue.opacity(0))
-                .listRowSeparatorTint(.white)
             }
             .padding(.trailing, 16)
             .listStyle(.plain)
