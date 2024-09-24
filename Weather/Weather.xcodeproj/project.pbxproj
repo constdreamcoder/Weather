@@ -20,6 +20,7 @@
 		00F12D352CA2EC1E00395DA4 /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D342CA2EC1E00395DA4 /* JSONLoader.swift */; };
 		00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */; };
 		00F12D3F2CA306E000395DA4 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D3E2CA306E000395DA4 /* HTTPTask.swift */; };
+		00F12D412CA307C600395DA4 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D402CA307C600395DA4 /* EndPointType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		00F12D342CA2EC1E00395DA4 /* JSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
 		00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		00F12D3E2CA306E000395DA4 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		00F12D402CA307C600395DA4 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 			children = (
 				00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */,
 				00F12D3E2CA306E000395DA4 /* HTTPTask.swift */,
+				00F12D402CA307C600395DA4 /* EndPointType.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				00F12D252CA2C43600395DA4 /* RoundedCorner.swift in Sources */,
 				00F12D202CA2BD1C00395DA4 /* SearchView.swift in Sources */,
 				00F12D352CA2EC1E00395DA4 /* JSONLoader.swift in Sources */,
+				00F12D412CA307C600395DA4 /* EndPointType.swift in Sources */,
 				00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */,
 				00F12D3F2CA306E000395DA4 /* HTTPTask.swift in Sources */,
 				00F12D1D2CA2BD1000395DA4 /* MainView.swift in Sources */,
