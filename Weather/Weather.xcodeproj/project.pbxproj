@@ -22,6 +22,7 @@
 		00F12D3F2CA306E000395DA4 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D3E2CA306E000395DA4 /* HTTPTask.swift */; };
 		00F12D412CA307C600395DA4 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D402CA307C600395DA4 /* EndPointType.swift */; };
 		00F12D432CA309E200395DA4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D422CA309E200395DA4 /* NetworkError.swift */; };
+		00F12D452CA30BF400395DA4 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D442CA30BF400395DA4 /* NetworkRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		00F12D3E2CA306E000395DA4 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		00F12D402CA307C600395DA4 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
 		00F12D422CA309E200395DA4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		00F12D442CA30BF400395DA4 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				00F12D372CA3043F00395DA4 /* Base */,
+				00F12D442CA30BF400395DA4 /* NetworkRouter.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				00F12D412CA307C600395DA4 /* EndPointType.swift in Sources */,
 				00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */,
 				00F12D3F2CA306E000395DA4 /* HTTPTask.swift in Sources */,
+				00F12D452CA30BF400395DA4 /* NetworkRouter.swift in Sources */,
 				00F12D1D2CA2BD1000395DA4 /* MainView.swift in Sources */,
 				00F12D432CA309E200395DA4 /* NetworkError.swift in Sources */,
 				00F12D2D2CA2DF5100395DA4 /* SearchBar.swift in Sources */,

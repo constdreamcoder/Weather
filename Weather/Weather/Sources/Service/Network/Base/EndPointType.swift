@@ -17,11 +17,11 @@ protocol EndPointType {
     var task: HTTPTask { get }
     var headers: HTTPHeaders { get }
     
-    func buildURLRequest() throws -> URLRequest
+    func buildURLRequest() -> URLRequest
 }
 
 extension EndPointType {
-    func buildURLRequest() throws -> URLRequest {
+    func buildURLRequest() -> URLRequest {
         var url: URL = baseURL
         url.appendPathComponent(path)
         
