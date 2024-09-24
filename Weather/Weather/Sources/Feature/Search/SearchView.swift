@@ -14,15 +14,18 @@ struct SearchView: View {
             SearchBar(text: $text)
                 .padding(.horizontal, 16)
             
-            List(0..<20) { _ in
-                VStack(alignment: .leading) {
-                    Text("Seoul")
-                        .fontWeight(.bold)
-                    Text("KR")
+            List {
+                ForEach(City.loadCityList(), id: \.id) { city in
+                    VStack(alignment: .leading) {
+                        Text(city.name)
+                            .fontWeight(.bold)
+                        Text(city.country)
+                    }
+                    .foregroundStyle(.white)
+                    .listRowBackground(Color.blue.opacity(0))
+                    .listRowSeparatorTint(.white)
                 }
-                .foregroundStyle(.white)
-                .listRowBackground(Color.blue.opacity(0))
-                .listRowSeparatorTint(.white)
+                
             }
             .padding(.trailing, 16)
             .listStyle(.plain)
