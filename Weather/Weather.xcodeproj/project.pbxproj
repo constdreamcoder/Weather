@@ -18,6 +18,7 @@
 		00F12D312CA2E99A00395DA4 /* citylist.json in Resources */ = {isa = PBXBuildFile; fileRef = 00F12D302CA2E99A00395DA4 /* citylist.json */; };
 		00F12D332CA2EB2000395DA4 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D322CA2EB2000395DA4 /* City.swift */; };
 		00F12D352CA2EC1E00395DA4 /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D342CA2EC1E00395DA4 /* JSONLoader.swift */; };
+		00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		00F12D302CA2E99A00395DA4 /* citylist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = citylist.json; sourceTree = "<group>"; };
 		00F12D322CA2EB2000395DA4 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		00F12D342CA2EC1E00395DA4 /* JSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
+		00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		00F12D192CA2BC9400395DA4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				00F12D362CA3042E00395DA4 /* Network */,
 				00F12D342CA2EC1E00395DA4 /* JSONLoader.swift */,
 			);
 			path = Service;
@@ -182,6 +185,22 @@
 				00F12D2C2CA2DF5100395DA4 /* SearchBar.swift */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		00F12D362CA3042E00395DA4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				00F12D372CA3043F00395DA4 /* Base */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		00F12D372CA3043F00395DA4 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +279,7 @@
 				00F12D252CA2C43600395DA4 /* RoundedCorner.swift in Sources */,
 				00F12D202CA2BD1C00395DA4 /* SearchView.swift in Sources */,
 				00F12D352CA2EC1E00395DA4 /* JSONLoader.swift in Sources */,
+				00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */,
 				00F12D1D2CA2BD1000395DA4 /* MainView.swift in Sources */,
 				00F12D2D2CA2DF5100395DA4 /* SearchBar.swift in Sources */,
 				00F12D332CA2EB2000395DA4 /* City.swift in Sources */,
