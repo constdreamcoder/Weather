@@ -9,15 +9,15 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State private var text: String = ""
+    @State private var searchText: String = ""
     
     var filteredCityList: [City] {
-        City.loadCityList().filter { $0.name.hasPrefix(text) || text == "" }
+        City.loadCityList().filter { $0.name.hasPrefix(searchText) || searchText == "" }
     }
     
     var body: some View {
         VStack {
-            SearchBar(text: $text)
+            SearchBar(text: $searchText)
                 .padding(.horizontal, 16)
             
             List {
