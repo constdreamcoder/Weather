@@ -21,6 +21,7 @@
 		00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */; };
 		00F12D3F2CA306E000395DA4 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D3E2CA306E000395DA4 /* HTTPTask.swift */; };
 		00F12D412CA307C600395DA4 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D402CA307C600395DA4 /* EndPointType.swift */; };
+		00F12D432CA309E200395DA4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D422CA309E200395DA4 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		00F12D3E2CA306E000395DA4 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		00F12D402CA307C600395DA4 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		00F12D422CA309E200395DA4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 				00F12D3C2CA305DE00395DA4 /* HTTPMethod.swift */,
 				00F12D3E2CA306E000395DA4 /* HTTPTask.swift */,
 				00F12D402CA307C600395DA4 /* EndPointType.swift */,
+				00F12D422CA309E200395DA4 /* NetworkError.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				00F12D3D2CA305DE00395DA4 /* HTTPMethod.swift in Sources */,
 				00F12D3F2CA306E000395DA4 /* HTTPTask.swift in Sources */,
 				00F12D1D2CA2BD1000395DA4 /* MainView.swift in Sources */,
+				00F12D432CA309E200395DA4 /* NetworkError.swift in Sources */,
 				00F12D2D2CA2DF5100395DA4 /* SearchBar.swift in Sources */,
 				00F12D332CA2EB2000395DA4 /* City.swift in Sources */,
 			);
