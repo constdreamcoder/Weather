@@ -29,7 +29,7 @@ struct CurrentWeather: Decodable {
     let humidity: Int
     let clouds: Int
     let windSpeed: Double
-    let weather: WeatherDescription
+    let weather: [WeatherDescription]
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -47,7 +47,7 @@ struct CurrentWeather: Decodable {
         self.humidity = try container.decode(Int.self, forKey: .humidity)
         self.clouds = try container.decode(Int.self, forKey: .clouds)
         self.windSpeed = try container.decode(Double.self, forKey: .windSpeed)
-        self.weather = try container.decode(WeatherDescription.self, forKey: .weather)
+        self.weather = try container.decode([WeatherDescription].self, forKey: .weather)
     }
 }
 
@@ -56,7 +56,7 @@ struct CurrentWeather: Decodable {
 struct HourlyWeather: Decodable {
     let dt: Int
     let temp: Double
-    let weather: WeatherDescription
+    let weather: [WeatherDescription]
 }
 
 // MARK: - 일간 일기예보
@@ -64,7 +64,7 @@ struct HourlyWeather: Decodable {
 struct DailyWeather: Decodable {
     let dt: Int
     let temp: DailyTemperature
-    let weather: WeatherDescription
+    let weather: [WeatherDescription]
 }
 
 struct DailyTemperature: Decodable {
