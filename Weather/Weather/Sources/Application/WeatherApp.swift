@@ -11,7 +11,7 @@ import SwiftUI
 struct WeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            SearchView()
+            MainView()
                 .environmentObject(
                     Store(
                         intialState: SearchReducer.State(),

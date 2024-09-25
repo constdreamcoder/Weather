@@ -195,8 +195,8 @@
 		00F12D1B2CA2BCC400395DA4 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				00F12D1F2CA2BD1C00395DA4 /* SearchView.swift */,
 				00A6866A2CA450EC00E8F412 /* SearchCore.swift */,
+				00F12D1F2CA2BD1C00395DA4 /* SearchView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

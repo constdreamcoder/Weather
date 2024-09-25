@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @EnvironmentObject var store: Store<SearchReducer.State, SearchReducer.Action>
+    @EnvironmentObject private var store: Store<SearchReducer.State, SearchReducer.Action>
     
     var body: some View {
         VStack {

@@ -9,6 +9,8 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
+    
+    @State private var isPresented: Bool = false
     @State private var text: String = ""
     @State private var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(
         latitude: 37.55272,
@@ -21,72 +23,79 @@ struct MainView: View {
     )
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing:16) {
-                    
-                    SearchBar(text: $text)
-                    
-                    VStack(spacing: 4) {
-                        Text("Seoul")
-                            .font(.system(size: 28))
-                        Text("-7°")
-                            .font(.system(size: 64))
-                        Text("맑음")
-                            .font(.system(size: 24))
-                        Text("최고 -1° | 최저 -11°")
+        ScrollView {
+            VStack(spacing:16) {
+                
+                SearchBar(text: $text)
+                    .disabled(true)
+                    .onTapGesture {
+                        print("호잇")
+                        isPresented = true
                     }
-                    .foregroundStyle(.white)
-                    
-                    SectionView(
-                        title: "돌풍의 풍속은 최대 4m/s입니다.",
-                        enableSeparator: true
-                    ) {
-                        ScrollView(.horizontal) {
-                            HStack(spacing: 24) {
-                                HourlyWeatherView()
-                                HourlyWeatherView()
-                                HourlyWeatherView()
-                                HourlyWeatherView()
-                                HourlyWeatherView()
-                                HourlyWeatherView()
-                                HourlyWeatherView()
-                            }
-                        }
-                    }
-                    
-                    SectionView(
-                        title: "5일간의 일기예보",
-                        enableSeparator: true
-                    ) {
-                        ForEach(0..<5) { _ in
-                            VStack {
-                                DailyWeatherView()
-                                
-                                Divider()
-                                    .background(.white)
-                            }
-                        }
-                    }
-                    
-                    SectionView(title: "강수량") {
-                        MapView(coordinates: $coordinates)
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(1, contentMode: .fill)
-                    }
-                    
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(0..<4) { _ in
-                            WeatherInfoView()
+                
+                VStack(spacing: 4) {
+                    Text("Seoul")
+                        .font(.system(size: 28))
+                    Text("-7°")
+                        .font(.system(size: 64))
+                    Text("맑음")
+                        .font(.system(size: 24))
+                    Text("최고 -1° | 최저 -11°")
+                }
+                .foregroundStyle(.white)
+                
+                SectionView(
+                    title: "돌풍의 풍속은 최대 4m/s입니다.",
+                    enableSeparator: true
+                ) {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 24) {
+                            HourlyWeatherView()
+                            HourlyWeatherView()
+                            HourlyWeatherView()
+                            HourlyWeatherView()
+                            HourlyWeatherView()
+                            HourlyWeatherView()
+                            HourlyWeatherView()
                         }
                     }
                 }
+                
+                SectionView(
+                    title: "5일간의 일기예보",
+                    enableSeparator: true
+                ) {
+                    ForEach(0..<5) { _ in
+                        VStack {
+                            DailyWeatherView()
+                            
+                            Divider()
+                                .background(.white)
+                        }
+                    }
+                }
+                
+                SectionView(title: "강수량") {
+                    MapView(coordinates: $coordinates)
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fill)
+                }
+                
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(0..<4) { _ in
+                        WeatherInfoView()
+                    }
+                }
             }
-            .padding(.horizontal, 16)
-            .background(.blue.opacity(0.6))
-            .scrollIndicators(.hidden)
+        }
+        .padding(.horizontal, 16)
+        .background(.blue.opacity(0.6))
+        .scrollIndicators(.hidden)
+        .fullScreenCover(isPresented: $isPresented) {
+            SearchView()
         }
     }
+    
 }
 
 #Preview {
