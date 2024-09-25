@@ -9,4 +9,5 @@ import Foundation
 
 enum HTTPTask {
     case requestPlain
+    case requestParameters(_ queryParameters: Parameters)
 }

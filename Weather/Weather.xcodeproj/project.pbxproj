@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00371CBA2CA3B3D5004DE4BA /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00371CB92CA3B3D5004DE4BA /* APIKeys.swift */; };
 		00F12D072CA2B62B00395DA4 /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D062CA2B62B00395DA4 /* WeatherApp.swift */; };
 		00F12D0B2CA2B62C00395DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F12D0A2CA2B62C00395DA4 /* Assets.xcassets */; };
 		00F12D0E2CA2B62C00395DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F12D0D2CA2B62C00395DA4 /* Preview Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00371CB92CA3B3D5004DE4BA /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		00F12D032CA2B62B00395DA4 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F12D062CA2B62B00395DA4 /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		00F12D0A2CA2B62C00395DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		00F12D052CA2B62B00395DA4 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				00371CB92CA3B3D5004DE4BA /* APIKeys.swift */,
 				00F12D162CA2BC4800395DA4 /* Sources */,
 				00F12D1A2CA2BCB500395DA4 /* Resources */,
 				00F12D0C2CA2B62C00395DA4 /* Preview Content */,
@@ -288,6 +291,7 @@
 			files = (
 				00F12D072CA2B62B00395DA4 /* WeatherApp.swift in Sources */,
 				00F12D222CA2C33500395DA4 /* MapView.swift in Sources */,
+				00371CBA2CA3B3D5004DE4BA /* APIKeys.swift in Sources */,
 				00F12D252CA2C43600395DA4 /* RoundedCorner.swift in Sources */,
 				00F12D202CA2BD1C00395DA4 /* SearchView.swift in Sources */,
 				00F12D352CA2EC1E00395DA4 /* JSONLoader.swift in Sources */,
