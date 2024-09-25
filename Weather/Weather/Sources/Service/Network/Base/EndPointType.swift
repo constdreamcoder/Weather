@@ -29,6 +29,11 @@ extension EndPointType {
         request.httpMethod = httpMethod.rawValue
         request.allHTTPHeaderFields = headers
         
+        if case let .requestParameters(parameters) = task {
+            let queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+            request.url?.append(queryItems: queryItems)
+        }
+        
         return request
     }
 }
