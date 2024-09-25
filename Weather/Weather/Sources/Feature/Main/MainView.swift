@@ -23,18 +23,17 @@ struct MainView: View {
                 SearchBar(text: .constant(""))
                     .disabled(true)
                     .onTapGesture {
-                        print("호잇")
                         store.dispatch(.present(isPresented: true))
                     }
                 
                 VStack(spacing: 4) {
-                    Text("Seoul")
+                    Text(store.state.currentWeather.name)
                         .font(.system(size: 28))
-                    Text("-7°")
+                    Text("\(store.state.currentWeather.temp)°")
                         .font(.system(size: 64))
-                    Text("맑음")
+                    Text(store.state.currentWeather.description)
                         .font(.system(size: 24))
-                    Text("최고 -1° | 최저 -11°")
+                    Text("최고 \(store.state.currentWeather.max)° | 최저 \(store.state.currentWeather.min)°")
                 }
                 .foregroundStyle(.white)
                 
