@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     
     @State private var searchText: String = ""
+    @StateObject private var intent = SearchIntent(weatherService: WeatherService(router: NetworkRouter()))
     
     var filteredCityList: [City] {
         City.loadCityList().filter { $0.name.hasPrefix(searchText) || searchText == "" }
@@ -24,6 +25,7 @@ struct SearchView: View {
                 ForEach(filteredCityList, id: \.id) { city in
                     Button(action: {
                         print(city.name)
+                        intent.send(.getWeatherForecaseInfo)
                     }, label: {
                         VStack(alignment: .leading) {
                             Text(city.name)
@@ -41,6 +43,10 @@ struct SearchView: View {
         }
         .background(.blue.opacity(0.6))
         .scrollIndicators(.hidden)
+    }
+    
+    private func getWeatherForecastInfo(lat: Double, lon: Double) {
+        WeatherService(router: NetworkRouter())
     }
 }
 
