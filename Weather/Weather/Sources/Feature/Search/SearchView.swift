@@ -9,23 +9,23 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State private var searchText: String = ""
-    @StateObject private var intent = SearchIntent(weatherService: WeatherService(router: NetworkRouter()))
-    
-    var filteredCityList: [City] {
-        City.loadCityList().filter { $0.name.hasPrefix(searchText) || searchText == "" }
-    }
+    @EnvironmentObject var store: Store<SearchReducer.State, SearchReducer.Action>
     
     var body: some View {
         VStack {
-            SearchBar(text: $searchText)
-                .padding(.horizontal, 16)
+            SearchBar(
+                text: Binding(
+                    get: { store.state.searchText },
+                    set: { store.dispatch(.write(searchText: $0)) }
+                )
+            )
+            .padding(.horizontal, 16)
             
             List {
-                ForEach(filteredCityList, id: \.id) { city in
+                ForEach(store.state.filteredCityList, id: \.id) { city in
                     Button(action: {
                         print(city.name)
-                        intent.send(.getWeatherForecaseInfo)
+                        store.dispatch(.selectCity(coord: city.coord))
                     }, label: {
                         VStack(alignment: .leading) {
                             Text(city.name)
@@ -43,10 +43,6 @@ struct SearchView: View {
         }
         .background(.blue.opacity(0.6))
         .scrollIndicators(.hidden)
-    }
-    
-    private func getWeatherForecastInfo(lat: Double, lon: Double) {
-        WeatherService(router: NetworkRouter())
     }
 }
 

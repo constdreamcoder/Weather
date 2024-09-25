@@ -25,6 +25,7 @@ struct WeatherService: WeatherServiceProtocol {
             with: WeatherEndpoint.fetchWeatherForecastInfo(lat: lat, lon: lon),
             type: WeatherForecastResponse.self
         )
+        
         .eraseToAnyPublisher()
     }
 }
