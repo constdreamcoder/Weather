@@ -6,16 +6,10 @@
 //
 
 import SwiftUI
-import CoreLocation
 
 struct MainView: View {
     
-    @State private var isPresented: Bool = false
-    @State private var text: String = ""
-    @State private var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(
-        latitude: 37.55272,
-        longitude: 126.98101
-    )
+    @EnvironmentObject private var store: Store<SearchReducer.State, SearchReducer.Action>
     
     private let columns: [GridItem] = Array(
         repeating: .init(.flexible(), spacing: 16),
@@ -26,11 +20,11 @@ struct MainView: View {
         ScrollView {
             VStack(spacing:16) {
                 
-                SearchBar(text: $text)
+                SearchBar(text: .constant(""))
                     .disabled(true)
                     .onTapGesture {
                         print("호잇")
-                        isPresented = true
+                        store.dispatch(.present(isPresented: true))
                     }
                 
                 VStack(spacing: 4) {
@@ -76,9 +70,11 @@ struct MainView: View {
                 }
                 
                 SectionView(title: "강수량") {
-                    MapView(coordinates: $coordinates)
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(1, contentMode: .fill)
+                    MapView(
+                        coordinates: .constant(store.state.coordinates)
+                    )
+                    .frame(maxWidth: .infinity)
+                    .aspectRatio(1, contentMode: .fill)
                 }
                 
                 LazyVGrid(columns: columns, spacing: 16) {
@@ -91,7 +87,12 @@ struct MainView: View {
         .padding(.horizontal, 16)
         .background(.blue.opacity(0.6))
         .scrollIndicators(.hidden)
-        .fullScreenCover(isPresented: $isPresented) {
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { store.state.isPresented },
+                set: { store.dispatch(.present(isPresented: $0)) }
+            )
+        ) {
             SearchView()
         }
     }

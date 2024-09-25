@@ -7,14 +7,23 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 final class SearchReducer: ReducerProtocol {
     struct State {
+        var isPresented: Bool = false
+        var text: String = ""
+        var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(
+            latitude: 37.55272,
+            longitude: 126.98101
+        )
+    
         var searchText: String = ""
         var filteredCityList: [City] = City.loadCityList()
     }
     
     enum Action {
+        case present(isPresented: Bool)
         case write(searchText: String)
         case selectCity(coord: Coordinate)
         case fetchComplete
@@ -29,6 +38,9 @@ final class SearchReducer: ReducerProtocol {
     
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
+        case .present(let isPresented):
+            state.isPresented = isPresented
+            return .none
         case .write(let searchText):
             state.searchText = searchText
             state.filteredCityList = City.loadCityList().filter {
@@ -50,6 +62,7 @@ final class SearchReducer: ReducerProtocol {
             )
         case .fetchComplete:
             print("완료")
+            state.isPresented = false
             return .none
         case .fetchError:
             print("조회 에러")
