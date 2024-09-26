@@ -12,6 +12,7 @@
 		00371CC42CA3B9F8004DE4BA /* WeatherForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00371CC32CA3B9F8004DE4BA /* WeatherForecastResponse.swift */; };
 		00371CC62CA3BECC004DE4BA /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00371CC52CA3BECC004DE4BA /* WeatherService.swift */; };
 		0051D2C72CA4F52E008DFBDF /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2C62CA4F52E008DFBDF /* DateFormatterManager.swift */; };
+		0051D2CB2CA54771008DFBDF /* LoactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CA2CA54771008DFBDF /* LoactionService.swift */; };
 		00A686632CA4133300E8F412 /* ReducerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686622CA4133300E8F412 /* ReducerProtocol.swift */; };
 		00A686652CA438C300E8F412 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686642CA438C300E8F412 /* Store.swift */; };
 		00A686692CA43DFF00E8F412 /* AnyReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686682CA43DFF00E8F412 /* AnyReducer.swift */; };
@@ -40,6 +41,7 @@
 		00371CC32CA3B9F8004DE4BA /* WeatherForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastResponse.swift; sourceTree = "<group>"; };
 		00371CC52CA3BECC004DE4BA /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		0051D2C62CA4F52E008DFBDF /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		0051D2CA2CA54771008DFBDF /* LoactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoactionService.swift; sourceTree = "<group>"; };
 		00A686622CA4133300E8F412 /* ReducerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerProtocol.swift; sourceTree = "<group>"; };
 		00A686642CA438C300E8F412 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		00A686682CA43DFF00E8F412 /* AnyReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyReducer.swift; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 				0051D2C62CA4F52E008DFBDF /* DateFormatterManager.swift */,
 			);
 			path = DateFormatter;
+			sourceTree = "<group>";
+		};
+		0051D2C92CA54760008DFBDF /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				0051D2CA2CA54771008DFBDF /* LoactionService.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		00A686612CA4132900E8F412 /* Reducer */ = {
@@ -185,6 +195,7 @@
 		00F12D192CA2BC9400395DA4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				0051D2C92CA54760008DFBDF /* Location */,
 				00A686612CA4132900E8F412 /* Reducer */,
 				00371CBE2CA3B79A004DE4BA /* Weather */,
 				00F12D362CA3042E00395DA4 /* Network */,
@@ -342,6 +353,7 @@
 				00371CBA2CA3B3D5004DE4BA /* APIKeys.swift in Sources */,
 				00A6866B2CA450EC00E8F412 /* SearchCore.swift in Sources */,
 				00F12D252CA2C43600395DA4 /* RoundedCorner.swift in Sources */,
+				0051D2CB2CA54771008DFBDF /* LoactionService.swift in Sources */,
 				00F12D202CA2BD1C00395DA4 /* SearchView.swift in Sources */,
 				00F12D352CA2EC1E00395DA4 /* JSONLoader.swift in Sources */,
 				00F12D412CA307C600395DA4 /* EndPointType.swift in Sources */,
@@ -492,8 +504,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Weather/Preview Content\"";
+				DEVELOPMENT_TEAM = 59V6NJY3X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보를 기반으로 지역 날씨 정보를 제공합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -525,8 +539,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Weather/Preview Content\"";
+				DEVELOPMENT_TEAM = 59V6NJY3X6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보를 기반으로 지역 날씨 정보를 제공합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

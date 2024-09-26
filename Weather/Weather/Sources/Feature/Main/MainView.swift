@@ -100,6 +100,27 @@ struct MainView: View {
         ) {
             SearchView()
         }
+        .onAppear {
+            store.dispatch(.onAppear)
+        }
+        .alert(
+            "위치 정보 이용",
+            isPresented: Binding(
+                get: { store.state.showAlert },
+                set: { store.dispatch(.showAlert(isPresented: $0)) }
+            ),
+            actions: {
+                Button("이동") { 
+                    if let setting = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(setting)
+                    }
+                }
+                Button("취소", role: .cancel) {}
+            },
+            message: {
+                Text("위치 서비스를 사용할 수 없습니다. 기기 '설정>개인정보 보호'에서 위치 서비스를 켜주세요")
+            }
+        )
     }
     
 }

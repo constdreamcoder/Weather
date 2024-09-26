@@ -11,12 +11,10 @@ import CoreLocation
 
 final class SearchReducer: ReducerProtocol {
     struct State {
+        var showAlert: Bool = false
         var isPresented: Bool = false
         var text: String = ""
-        var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(
-            latitude: 37.55272,
-            longitude: 126.98101
-        )
+        var coordinates: CLLocationCoordinate2D? = nil
         var currentWeather = CurrentWeatherDisplay()
         var hourlyWeather: [HourlyWeatherDisplay] = []
         var dailyWeather: [DailyWeatherDisplay] = []
@@ -64,21 +62,71 @@ final class SearchReducer: ReducerProtocol {
     }
     
     enum Action {
+        case showAlert(isPresented: Bool)
+        case onAppear
+        case searchComplete(userCoord: CLLocationCoordinate2D)
+        case searchError
         case present(isPresented: Bool)
         case write(searchText: String)
         case selectCity(city: City)
         case fetchComplete(result: WeatherForecastResponse)
         case fetchError
+        case none
     }
     
     private let weatherService: WeatherServiceProtocol
+    private let locationService: LocationServiceProtocol
     
-    init(weatherService: WeatherServiceProtocol) {
+    init(
+        weatherService: WeatherServiceProtocol,
+        locationService: LocationServiceProtocol
+    ) {
         self.weatherService = weatherService
+        self.locationService = locationService
     }
     
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
+        case .showAlert(let isPresented):
+            state.showAlert = isPresented
+            return .none
+        case .onAppear:
+            locationService.checkDeviceLocationAuthorization()
+            return .publisher(
+                locationService.subject
+                    .map { userCoordinate in
+                        if let userCoordinate,
+                            userCoordinate.latitude != 0,
+                            userCoordinate.latitude != 0 {
+                            return Action.searchComplete(userCoord: userCoordinate)
+                        } else if userCoordinate == nil {
+                            return Action.showAlert(isPresented: true)
+                        }
+                        return Action.none
+                    }
+                    .catch{ error in
+                        Just(Action.searchError)
+                    }
+                    .eraseToAnyPublisher()
+            )
+        case .searchComplete(let userCoord):
+            state.coordinates = userCoord
+            return .publisher(
+                weatherService.getWeatherForecastInfo(
+                    lat: userCoord.latitude,
+                    lon: userCoord.longitude
+                )
+                .map { weatherForecastResponse in
+                    Action.fetchComplete(result: weatherForecastResponse)
+                }
+                .catch { error in
+                    Just(Action.fetchError)
+                }
+                .eraseToAnyPublisher()
+            )
+        case .searchError:
+            print("유저 위치 검색 오류")
+            return .none
         case .present(let isPresented):
             state.isPresented = isPresented
             return .none
@@ -93,7 +141,7 @@ final class SearchReducer: ReducerProtocol {
             return .publisher(
                 weatherService.getWeatherForecastInfo(
                     lat: city.coord.lat,
-                    lon:  city.coord.lon
+                    lon: city.coord.lon
                 )
                 .map { weatherForecastResponse in
                     Action.fetchComplete(result: weatherForecastResponse)
@@ -105,6 +153,8 @@ final class SearchReducer: ReducerProtocol {
             )
         case .fetchComplete(let result):
             print("완료")
+            print("result")
+            print(result)
             state.currentWeather.description = result.current.weather[0].description
             state.currentWeather.temp = Int(result.current.temp)
             state.currentWeather.min = Int(result.daily[0].temp.min)
@@ -142,8 +192,8 @@ final class SearchReducer: ReducerProtocol {
             
             state.dailyWeather[0].dayOfWeek = "오늘"
             
-            state.coordinates.latitude = result.lat
-            state.coordinates.longitude = result.lon
+            state.coordinates?.latitude = result.lat
+            state.coordinates?.longitude = result.lon
             
             let humidity = State.MeteorologicalFactorUpperDisplay(
                 name: "습도",
@@ -156,7 +206,7 @@ final class SearchReducer: ReducerProtocol {
             )
             
             state.meteorologicalFactorsUpper = [humidity, clouds]
-           
+            
             state.meteorologicalFactorLower.name = "바람 속도"
             state.meteorologicalFactorLower.value = result.current.windSpeed
             state.meteorologicalFactorLower.additionalValue = result.current.windGust ?? 0
@@ -166,6 +216,8 @@ final class SearchReducer: ReducerProtocol {
         case .fetchError:
             print("조회 에러")
             state.currentWeather.name = "Seoul"
+            return .none
+        case .none:
             return .none
         }
     }
