@@ -14,11 +14,7 @@ protocol WeatherServiceProtocol {
 
 struct WeatherService: WeatherServiceProtocol {
     
-    private let router: NetworkRouterProtocol
-    
-    init(router: NetworkRouterProtocol) {
-        self.router = router
-    }
+    @Inject private var router: NetworkRouterProtocol
     
     func getWeatherForecastInfo(lat: Double, lon: Double) -> AnyPublisher<WeatherForecastResponse, Error> {
         return router.request(

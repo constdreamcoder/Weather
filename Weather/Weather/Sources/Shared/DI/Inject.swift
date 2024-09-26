@@ -12,6 +12,6 @@ struct Inject<T> {
     let wrappedValue: T
     
     init() {
-        self.wrappedValue = DIContainer.shared.resolve(T.self)
+        self.wrappedValue = DIContainer.shared.resolve(type: T.self)
     }
 }

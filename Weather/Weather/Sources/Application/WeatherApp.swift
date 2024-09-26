@@ -9,16 +9,18 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
+    
+    init() {
+        AppEnvironment().registerDependencies()
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()
                 .environmentObject(
                     Store(
                         intialState: SearchReducer.State(),
-                        reducer: SearchReducer(
-                            weatherService: WeatherService(router: NetworkRouter()),
-                            locationService: LocationService()
-                        )
+                        reducer: SearchReducer()
                     )
                 )
         }

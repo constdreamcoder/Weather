@@ -15,6 +15,7 @@
 		0051D2CB2CA54771008DFBDF /* LoactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CA2CA54771008DFBDF /* LoactionService.swift */; };
 		0051D2CE2CA5B673008DFBDF /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CD2CA5B673008DFBDF /* DIContainer.swift */; };
 		0051D2D02CA5BACD008DFBDF /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CF2CA5BACD008DFBDF /* Inject.swift */; };
+		0051D2D22CA5BF68008DFBDF /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2D12CA5BF68008DFBDF /* AppEnvironment.swift */; };
 		00A686632CA4133300E8F412 /* ReducerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686622CA4133300E8F412 /* ReducerProtocol.swift */; };
 		00A686652CA438C300E8F412 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686642CA438C300E8F412 /* Store.swift */; };
 		00A686692CA43DFF00E8F412 /* AnyReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686682CA43DFF00E8F412 /* AnyReducer.swift */; };
@@ -46,6 +47,7 @@
 		0051D2CA2CA54771008DFBDF /* LoactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoactionService.swift; sourceTree = "<group>"; };
 		0051D2CD2CA5B673008DFBDF /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		0051D2CF2CA5BACD008DFBDF /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
+		0051D2D12CA5BF68008DFBDF /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		00A686622CA4133300E8F412 /* ReducerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerProtocol.swift; sourceTree = "<group>"; };
 		00A686642CA438C300E8F412 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		00A686682CA43DFF00E8F412 /* AnyReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyReducer.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				00F12D062CA2B62B00395DA4 /* WeatherApp.swift */,
+				0051D2D12CA5BF68008DFBDF /* AppEnvironment.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				00F12D2D2CA2DF5100395DA4 /* SearchBar.swift in Sources */,
 				00A686652CA438C300E8F412 /* Store.swift in Sources */,
 				00F12D332CA2EB2000395DA4 /* City.swift in Sources */,
+				0051D2D22CA5BF68008DFBDF /* AppEnvironment.swift in Sources */,
 				00371CC62CA3BECC004DE4BA /* WeatherService.swift in Sources */,
 				00371CC42CA3B9F8004DE4BA /* WeatherForecastResponse.swift in Sources */,
 				0051D2C72CA4F52E008DFBDF /* DateFormatterManager.swift in Sources */,
