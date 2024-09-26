@@ -32,17 +32,17 @@ final class SearchReducer: ReducerProtocol {
         
         struct HourlyWeatherDisplay {
             var dt: Int = 0
-            var temp: Double = 0
+            var temp: Int = 0
             var weather: [WeatherDescription] = []
             var hour: String = ""
         }
         
         struct DailyWeatherDisplay {
-            var dt: Int
-            var min: Int
-            var max: Int
-            var weather: [WeatherDescription]
-            var dayOfWeek: String
+            var dt: Int = 0
+            var min: Int = 0
+            var max: Int = 0
+            var weather: [WeatherDescription] = []
+            var dayOfWeek: String = ""
         }
         
         var searchText: String = ""
@@ -105,7 +105,7 @@ final class SearchReducer: ReducerProtocol {
                     )
                     return .init(
                         dt: element.dt,
-                        temp: element.temp,
+                        temp: Int(element.temp),
                         weather: element.weather,
                         hour: hour
                     )

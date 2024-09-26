@@ -146,7 +146,7 @@ struct HourlyWeatherView: View {
                 .frame(width: 32)
                 .foregroundStyle(.yellow)
             
-            Text("\(Int(hourlyWeather.temp))°")
+            Text("\(hourlyWeather.temp)°")
         }
     }
 }
