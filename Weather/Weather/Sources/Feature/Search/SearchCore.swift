@@ -19,6 +19,7 @@ final class SearchReducer: ReducerProtocol {
         )
         var currentWeather = CurrentWeatherDisplay()
         var hourlyWeather: [HourlyWeatherDisplay] = []
+        var dailyWeather: [DailyWeatherDisplay] = []
         
         struct CurrentWeatherDisplay {
             var name: String = "Seoul"
@@ -34,6 +35,14 @@ final class SearchReducer: ReducerProtocol {
             var temp: Double = 0
             var weather: [WeatherDescription] = []
             var hour: String = ""
+        }
+        
+        struct DailyWeatherDisplay {
+            var dt: Int
+            var min: Int
+            var max: Int
+            var weather: [WeatherDescription]
+            var dayOfWeek: String
         }
         
         var searchText: String = ""
@@ -105,6 +114,19 @@ final class SearchReducer: ReducerProtocol {
             }
             
             state.hourlyWeather[0].hour = "지금"
+            
+            state.dailyWeather = result.daily[0..<5].map {
+                let dayOfWeek = DateFormatterManager.shared.dayOfWeek(from: $0.dt)
+                return .init(
+                    dt: $0.dt,
+                    min: Int($0.temp.min),
+                    max: Int($0.temp.max),
+                    weather: $0.weather,
+                    dayOfWeek: dayOfWeek
+                )
+            }
+            
+            state.dailyWeather[0].dayOfWeek = "오늘"
             
             state.coordinates.latitude = result.lat
             state.coordinates.longitude = result.lon

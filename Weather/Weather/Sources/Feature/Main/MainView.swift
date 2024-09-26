@@ -54,9 +54,9 @@ struct MainView: View {
                     title: "5일간의 일기예보",
                     enableSeparator: true
                 ) {
-                    ForEach(0..<5) { _ in
+                    ForEach(store.state.dailyWeather, id: \.dt) { dailyWeather in
                         VStack {
-                            DailyWeatherView()
+                            DailyWeatherView(dailyWeather: dailyWeather)
                             
                             Divider()
                                 .background(.white)
@@ -152,14 +152,16 @@ struct HourlyWeatherView: View {
 }
 
 struct DailyWeatherView: View {
+    let dailyWeather: SearchReducer.State.DailyWeatherDisplay
+    
     var body: some View {
         HStack {
-            Text("오늘")
+            Text(dailyWeather.dayOfWeek)
                 .frame(width: 30, alignment: .leading)
             
             Spacer()
             
-            Image(systemName: "sun.max.fill")
+            Image(dailyWeather.weather[0].icon)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
                 .frame(width: 32)
@@ -168,8 +170,8 @@ struct DailyWeatherView: View {
             Spacer()
             
             HStack {
-                Text("최소: -88°")
-                Text("최대: -88°")
+                Text("최소: \(Int(dailyWeather.min))°")
+                Text("최대: \(Int(dailyWeather.max))°")
             }
             .frame(width: 158, alignment: .trailing)
         }
