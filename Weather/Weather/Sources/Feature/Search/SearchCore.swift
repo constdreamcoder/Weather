@@ -20,6 +20,8 @@ final class SearchReducer: ReducerProtocol {
         var currentWeather = CurrentWeatherDisplay()
         var hourlyWeather: [HourlyWeatherDisplay] = []
         var dailyWeather: [DailyWeatherDisplay] = []
+        var meteorologicalFactorsUpper: [MeteorologicalFactorUpperDisplay] = []
+        var meteorologicalFactorLower = MeteorologicalFactorLowerDisplay()
         
         struct CurrentWeatherDisplay {
             var name: String = "Seoul"
@@ -43,6 +45,18 @@ final class SearchReducer: ReducerProtocol {
             var max: Int = 0
             var weather: [WeatherDescription] = []
             var dayOfWeek: String = ""
+        }
+        
+        struct MeteorologicalFactorUpperDisplay: Identifiable {
+            let id = UUID()
+            var name: String
+            var value: Int
+        }
+        
+        struct MeteorologicalFactorLowerDisplay {
+            var name: String = ""
+            var value: Double = 0
+            var additionalValue: Double = 0
         }
         
         var searchText: String = ""
@@ -130,6 +144,22 @@ final class SearchReducer: ReducerProtocol {
             
             state.coordinates.latitude = result.lat
             state.coordinates.longitude = result.lon
+            
+            let humidity = State.MeteorologicalFactorUpperDisplay(
+                name: "습도",
+                value: result.current.humidity
+            )
+            
+            let clouds = State.MeteorologicalFactorUpperDisplay(
+                name: "구름",
+                value: result.current.clouds
+            )
+            
+            state.meteorologicalFactorsUpper = [humidity, clouds]
+           
+            state.meteorologicalFactorLower.name = "바람 속도"
+            state.meteorologicalFactorLower.value = result.current.windSpeed
+            state.meteorologicalFactorLower.additionalValue = result.current.windGust ?? 0
             
             state.isPresented = false
             return .none

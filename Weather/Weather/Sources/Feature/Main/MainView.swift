@@ -73,9 +73,19 @@ struct MainView: View {
                 }
                 
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(0..<4) { _ in
-                        WeatherInfoView()
+                    ForEach(store.state.meteorologicalFactorsUpper, id: \.id) { factor in
+                        WeatherInfoView(
+                            factorName: factor.name,
+                            value: "\(factor.value)%",
+                            additionalValue: ""
+                        )
                     }
+                    
+                    WeatherInfoView(
+                        factorName: store.state.meteorologicalFactorLower.name,
+                        value: "\(store.state.meteorologicalFactorLower.value)m/s",
+                        additionalValue: "\(store.state.meteorologicalFactorLower.additionalValue)m/s"
+                    )
                 }
             }
         }
@@ -179,22 +189,27 @@ struct DailyWeatherView: View {
 }
 
 struct WeatherInfoView: View {
+    
+    let factorName: String
+    let value: String
+    let additionalValue: String
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(.blue)
             .aspectRatio(1.0, contentMode: .fit)  // 1:1 비율 유지
             .overlay(alignment: .topLeading) {
-                Text("습도")
+                Text(factorName)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(16)
             }
             .overlay(alignment: .leading) {
-                Text("56%")
+                Text(value)
                     .font(.largeTitle)
                     .padding(.horizontal, 18)
             }
             .overlay(alignment: .bottomLeading) {
-                Text("2%")
+                Text(additionalValue)
                     .padding(16)
             }
             .foregroundStyle(.white)
