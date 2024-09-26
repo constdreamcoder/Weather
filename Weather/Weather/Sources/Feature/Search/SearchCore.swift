@@ -74,16 +74,8 @@ final class SearchReducer: ReducerProtocol {
         case none
     }
     
-    private let weatherService: WeatherServiceProtocol
-    private let locationService: LocationServiceProtocol
-    
-    init(
-        weatherService: WeatherServiceProtocol,
-        locationService: LocationServiceProtocol
-    ) {
-        self.weatherService = weatherService
-        self.locationService = locationService
-    }
+    @Inject private var weatherService: WeatherServiceProtocol
+    @Inject private var locationService: LocationServiceProtocol
     
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {

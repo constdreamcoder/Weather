@@ -13,6 +13,9 @@
 		00371CC62CA3BECC004DE4BA /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00371CC52CA3BECC004DE4BA /* WeatherService.swift */; };
 		0051D2C72CA4F52E008DFBDF /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2C62CA4F52E008DFBDF /* DateFormatterManager.swift */; };
 		0051D2CB2CA54771008DFBDF /* LoactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CA2CA54771008DFBDF /* LoactionService.swift */; };
+		0051D2CE2CA5B673008DFBDF /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CD2CA5B673008DFBDF /* DIContainer.swift */; };
+		0051D2D02CA5BACD008DFBDF /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2CF2CA5BACD008DFBDF /* Inject.swift */; };
+		0051D2D22CA5BF68008DFBDF /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0051D2D12CA5BF68008DFBDF /* AppEnvironment.swift */; };
 		00A686632CA4133300E8F412 /* ReducerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686622CA4133300E8F412 /* ReducerProtocol.swift */; };
 		00A686652CA438C300E8F412 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686642CA438C300E8F412 /* Store.swift */; };
 		00A686692CA43DFF00E8F412 /* AnyReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A686682CA43DFF00E8F412 /* AnyReducer.swift */; };
@@ -42,6 +45,9 @@
 		00371CC52CA3BECC004DE4BA /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		0051D2C62CA4F52E008DFBDF /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		0051D2CA2CA54771008DFBDF /* LoactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoactionService.swift; sourceTree = "<group>"; };
+		0051D2CD2CA5B673008DFBDF /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		0051D2CF2CA5BACD008DFBDF /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
+		0051D2D12CA5BF68008DFBDF /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		00A686622CA4133300E8F412 /* ReducerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerProtocol.swift; sourceTree = "<group>"; };
 		00A686642CA438C300E8F412 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		00A686682CA43DFF00E8F412 /* AnyReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyReducer.swift; sourceTree = "<group>"; };
@@ -99,6 +105,15 @@
 				0051D2CA2CA54771008DFBDF /* LoactionService.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		0051D2CC2CA5B64E008DFBDF /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				0051D2CD2CA5B673008DFBDF /* DIContainer.swift */,
+				0051D2CF2CA5BACD008DFBDF /* Inject.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		00A686612CA4132900E8F412 /* Reducer */ = {
@@ -159,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				00F12D062CA2B62B00395DA4 /* WeatherApp.swift */,
+				0051D2D12CA5BF68008DFBDF /* AppEnvironment.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -225,6 +241,7 @@
 		00F12D232CA2C42000395DA4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0051D2CC2CA5B64E008DFBDF /* DI */,
 				0051D2C82CA4F787008DFBDF /* DateFormatter */,
 				00F12D2B2CA2DF3B00395DA4 /* CustomViews */,
 				00F12D262CA2C44200395DA4 /* CustomModifiers */,
@@ -352,6 +369,7 @@
 				00F12D222CA2C33500395DA4 /* MapView.swift in Sources */,
 				00371CBA2CA3B3D5004DE4BA /* APIKeys.swift in Sources */,
 				00A6866B2CA450EC00E8F412 /* SearchCore.swift in Sources */,
+				0051D2CE2CA5B673008DFBDF /* DIContainer.swift in Sources */,
 				00F12D252CA2C43600395DA4 /* RoundedCorner.swift in Sources */,
 				0051D2CB2CA54771008DFBDF /* LoactionService.swift in Sources */,
 				00F12D202CA2BD1C00395DA4 /* SearchView.swift in Sources */,
@@ -362,11 +380,13 @@
 				00A686692CA43DFF00E8F412 /* AnyReducer.swift in Sources */,
 				00F12D452CA30BF400395DA4 /* NetworkRouter.swift in Sources */,
 				00F12D1D2CA2BD1000395DA4 /* MainView.swift in Sources */,
+				0051D2D02CA5BACD008DFBDF /* Inject.swift in Sources */,
 				00F12D432CA309E200395DA4 /* NetworkError.swift in Sources */,
 				00A686632CA4133300E8F412 /* ReducerProtocol.swift in Sources */,
 				00F12D2D2CA2DF5100395DA4 /* SearchBar.swift in Sources */,
 				00A686652CA438C300E8F412 /* Store.swift in Sources */,
 				00F12D332CA2EB2000395DA4 /* City.swift in Sources */,
+				0051D2D22CA5BF68008DFBDF /* AppEnvironment.swift in Sources */,
 				00371CC62CA3BECC004DE4BA /* WeatherService.swift in Sources */,
 				00371CC42CA3B9F8004DE4BA /* WeatherForecastResponse.swift in Sources */,
 				0051D2C72CA4F52E008DFBDF /* DateFormatterManager.swift in Sources */,
