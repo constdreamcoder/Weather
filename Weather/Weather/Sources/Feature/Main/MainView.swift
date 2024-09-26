@@ -38,18 +38,14 @@ struct MainView: View {
                 .foregroundStyle(.white)
                 
                 SectionView(
-                    title: "돌풍의 풍속은 최대 4m/s입니다.",
+                    title: "돌풍의 풍속은 최대 \(store.state.currentWeather.windGust)m/s입니다.",
                     enableSeparator: true
                 ) {
                     ScrollView(.horizontal) {
-                        HStack(spacing: 24) {
-                            HourlyWeatherView()
-                            HourlyWeatherView()
-                            HourlyWeatherView()
-                            HourlyWeatherView()
-                            HourlyWeatherView()
-                            HourlyWeatherView()
-                            HourlyWeatherView()
+                        LazyHStack(spacing: 24) {
+                            ForEach(store.state.hourlyWeather, id: \.dt) { hourlyWeather in
+                                HourlyWeatherView(hourlyWeather: hourlyWeather)
+                            }
                         }
                     }
                 }
@@ -138,15 +134,19 @@ struct SectionView<Content>: View where Content : View {
 }
 
 struct HourlyWeatherView: View {
+    let hourlyWeather: SearchReducer.State.HourlyWeatherDisplay
+    
     var body: some View {
         VStack(alignment: .center) {
-            Text("지금")
-            Image(systemName: "sun.max.fill")
+            Text(hourlyWeather.hour)
+            
+            Image(hourlyWeather.weather[0].icon)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
                 .frame(width: 32)
                 .foregroundStyle(.yellow)
-            Text("-7°")
+            
+            Text("\(Int(hourlyWeather.temp))°")
         }
     }
 }

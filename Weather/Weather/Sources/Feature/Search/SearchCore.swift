@@ -17,18 +17,27 @@ final class SearchReducer: ReducerProtocol {
             latitude: 37.55272,
             longitude: 126.98101
         )
-        var currentWeather = CurrentWeather()
+        var currentWeather = CurrentWeatherDisplay()
+        var hourlyWeather: [HourlyWeatherDisplay] = []
         
-        var searchText: String = ""
-        var filteredCityList: [City] = City.loadCityList()
-        
-        struct CurrentWeather {
+        struct CurrentWeatherDisplay {
             var name: String = "Seoul"
             var temp: Int = 0
             var description: String = "맑음"
             var min: Int = 0
             var max: Int = 0
+            var windGust: Int = 0
         }
+        
+        struct HourlyWeatherDisplay {
+            var dt: Int = 0
+            var temp: Double = 0
+            var weather: [WeatherDescription] = []
+            var hour: String = ""
+        }
+        
+        var searchText: String = ""
+        var filteredCityList: [City] = City.loadCityList()
     }
     
     enum Action {
@@ -64,14 +73,12 @@ final class SearchReducer: ReducerProtocol {
                     lon:  city.coord.lon
                 )
                 .map { weatherForecastResponse in
-                    print("weatherForecastResponse")
-                    print(weatherForecastResponse)
-                    return Action.fetchComplete(result: weatherForecastResponse)
+                    Action.fetchComplete(result: weatherForecastResponse)
                 }
-                    .catch { error in
-                        Just(Action.fetchError)
-                    }
-                    .eraseToAnyPublisher()
+                .catch { error in
+                    Just(Action.fetchError)
+                }
+                .eraseToAnyPublisher()
             )
         case .fetchComplete(let result):
             print("완료")
@@ -79,6 +86,25 @@ final class SearchReducer: ReducerProtocol {
             state.currentWeather.temp = Int(result.current.temp)
             state.currentWeather.min = Int(result.daily[0].temp.min)
             state.currentWeather.max = Int(result.daily[0].temp.max)
+            state.currentWeather.windGust = Int(result.current.windGust ?? 0)
+            
+            state.hourlyWeather = result.hourly.enumerated().compactMap { index, element in
+                if index % 3 == 0 {
+                    let hour = DateFormatterManager.shared.unixTimeToFormattedTime(
+                        element.dt,
+                        timeZoneId: result.timezone
+                    )
+                    return .init(
+                        dt: element.dt,
+                        temp: element.temp,
+                        weather: element.weather,
+                        hour: hour
+                    )
+                }
+                return nil
+            }
+            
+            state.hourlyWeather[0].hour = "지금"
             
             state.coordinates.latitude = result.lat
             state.coordinates.longitude = result.lon
