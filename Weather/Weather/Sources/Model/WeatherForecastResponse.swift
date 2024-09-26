@@ -10,6 +10,7 @@ import Foundation
 struct WeatherForecastResponse: Decodable {
     let lat: Double
     let lon: Double
+    let timezone: String
     let current: CurrentWeather
     let hourly: [HourlyWeather]
     let daily: [DailyWeather]
@@ -19,6 +20,20 @@ struct WeatherDescription: Decodable {
     let id: Int
     let description: String
     let icon: String
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case description
+        case icon
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.description = try container.decode(String.self, forKey: .description)
+        let icon = try container.decode(String.self, forKey: .icon)
+        self.icon = String(icon.prefix(2))
+    }
 }
 
 // MARK: - 현재 날씨 정보
@@ -29,6 +44,7 @@ struct CurrentWeather: Decodable {
     let humidity: Int
     let clouds: Int
     let windSpeed: Double
+    let windGust: Double?
     let weather: [WeatherDescription]
     
     enum CodingKeys: String, CodingKey {
@@ -37,6 +53,7 @@ struct CurrentWeather: Decodable {
         case humidity
         case clouds
         case windSpeed = "wind_speed"
+        case windGust = "wind_gust"
         case weather
     }
     
@@ -47,6 +64,7 @@ struct CurrentWeather: Decodable {
         self.humidity = try container.decode(Int.self, forKey: .humidity)
         self.clouds = try container.decode(Int.self, forKey: .clouds)
         self.windSpeed = try container.decode(Double.self, forKey: .windSpeed)
+        self.windGust = try container.decodeIfPresent(Double.self, forKey: .windGust) ?? 0
         self.weather = try container.decode([WeatherDescription].self, forKey: .weather)
     }
 }

@@ -24,8 +24,7 @@ struct SearchView: View {
             List {
                 ForEach(store.state.filteredCityList, id: \.id) { city in
                     Button(action: {
-                        print(city.name)
-                        store.dispatch(.selectCity(coord: city.coord))
+                        store.dispatch(.selectCity(city: city))
                     }, label: {
                         VStack(alignment: .leading) {
                             Text(city.name)

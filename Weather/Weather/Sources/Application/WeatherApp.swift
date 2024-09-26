@@ -16,7 +16,8 @@ struct WeatherApp: App {
                     Store(
                         intialState: SearchReducer.State(),
                         reducer: SearchReducer(
-                            weatherService: WeatherService(router: NetworkRouter())
+                            weatherService: WeatherService(router: NetworkRouter()),
+                            locationService: LocationService()
                         )
                     )
                 )

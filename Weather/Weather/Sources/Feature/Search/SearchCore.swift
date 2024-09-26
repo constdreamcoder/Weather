@@ -11,33 +11,122 @@ import CoreLocation
 
 final class SearchReducer: ReducerProtocol {
     struct State {
+        var showAlert: Bool = false
         var isPresented: Bool = false
         var text: String = ""
-        var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(
-            latitude: 37.55272,
-            longitude: 126.98101
-        )
-    
+        var coordinates: CLLocationCoordinate2D? = nil
+        var currentWeather = CurrentWeatherDisplay()
+        var hourlyWeather: [HourlyWeatherDisplay] = []
+        var dailyWeather: [DailyWeatherDisplay] = []
+        var meteorologicalFactorsUpper: [MeteorologicalFactorUpperDisplay] = []
+        var meteorologicalFactorLower = MeteorologicalFactorLowerDisplay()
+        
+        struct CurrentWeatherDisplay {
+            var name: String = "Seoul"
+            var temp: Int = 0
+            var description: String = "맑음"
+            var min: Int = 0
+            var max: Int = 0
+            var windGust: Int = 0
+        }
+        
+        struct HourlyWeatherDisplay {
+            var dt: Int = 0
+            var temp: Int = 0
+            var weather: [WeatherDescription] = []
+            var hour: String = ""
+        }
+        
+        struct DailyWeatherDisplay {
+            var dt: Int = 0
+            var min: Int = 0
+            var max: Int = 0
+            var weather: [WeatherDescription] = []
+            var dayOfWeek: String = ""
+        }
+        
+        struct MeteorologicalFactorUpperDisplay: Identifiable {
+            let id = UUID()
+            var name: String
+            var value: Int
+        }
+        
+        struct MeteorologicalFactorLowerDisplay {
+            var name: String = ""
+            var value: Double = 0
+            var additionalValue: Double = 0
+        }
+        
         var searchText: String = ""
         var filteredCityList: [City] = City.loadCityList()
     }
     
     enum Action {
+        case showAlert(isPresented: Bool)
+        case onAppear
+        case searchComplete(userCoord: CLLocationCoordinate2D)
+        case searchError
         case present(isPresented: Bool)
         case write(searchText: String)
-        case selectCity(coord: Coordinate)
-        case fetchComplete
+        case selectCity(city: City)
+        case fetchComplete(result: WeatherForecastResponse)
         case fetchError
+        case none
     }
     
     private let weatherService: WeatherServiceProtocol
+    private let locationService: LocationServiceProtocol
     
-    init(weatherService: WeatherServiceProtocol) {
+    init(
+        weatherService: WeatherServiceProtocol,
+        locationService: LocationServiceProtocol
+    ) {
         self.weatherService = weatherService
+        self.locationService = locationService
     }
     
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
+        case .showAlert(let isPresented):
+            state.showAlert = isPresented
+            return .none
+        case .onAppear:
+            locationService.checkDeviceLocationAuthorization()
+            return .publisher(
+                locationService.subject
+                    .map { userCoordinate in
+                        if let userCoordinate,
+                            userCoordinate.latitude != 0,
+                            userCoordinate.latitude != 0 {
+                            return Action.searchComplete(userCoord: userCoordinate)
+                        } else if userCoordinate == nil {
+                            return Action.showAlert(isPresented: true)
+                        }
+                        return Action.none
+                    }
+                    .catch{ error in
+                        Just(Action.searchError)
+                    }
+                    .eraseToAnyPublisher()
+            )
+        case .searchComplete(let userCoord):
+            state.coordinates = userCoord
+            return .publisher(
+                weatherService.getWeatherForecastInfo(
+                    lat: userCoord.latitude,
+                    lon: userCoord.longitude
+                )
+                .map { weatherForecastResponse in
+                    Action.fetchComplete(result: weatherForecastResponse)
+                }
+                .catch { error in
+                    Just(Action.fetchError)
+                }
+                .eraseToAnyPublisher()
+            )
+        case .searchError:
+            print("유저 위치 검색 오류")
+            return .none
         case .present(let isPresented):
             state.isPresented = isPresented
             return .none
@@ -47,25 +136,88 @@ final class SearchReducer: ReducerProtocol {
                 $0.name.hasPrefix(searchText) || searchText == ""
             }
             return .none
-        case .selectCity(let coord):
+        case .selectCity(let city):
+            state.currentWeather.name = city.name
             return .publisher(
-                weatherService.getWeatherForecastInfo(lat: coord.lat, lon:  coord.lon)
-                    .map { weatherForecastResponse in
-                        print("weatherForecastResponse")
-                        print(weatherForecastResponse)
-                        return Action.fetchComplete
-                    }
-                    .catch { error in
-                        Just(Action.fetchError)
-                    }
-                    .eraseToAnyPublisher()
+                weatherService.getWeatherForecastInfo(
+                    lat: city.coord.lat,
+                    lon: city.coord.lon
+                )
+                .map { weatherForecastResponse in
+                    Action.fetchComplete(result: weatherForecastResponse)
+                }
+                .catch { error in
+                    Just(Action.fetchError)
+                }
+                .eraseToAnyPublisher()
             )
-        case .fetchComplete:
+        case .fetchComplete(let result):
             print("완료")
+            print("result")
+            print(result)
+            state.currentWeather.description = result.current.weather[0].description
+            state.currentWeather.temp = Int(result.current.temp)
+            state.currentWeather.min = Int(result.daily[0].temp.min)
+            state.currentWeather.max = Int(result.daily[0].temp.max)
+            state.currentWeather.windGust = Int(result.current.windGust ?? 0)
+            
+            state.hourlyWeather = result.hourly.enumerated().compactMap { index, element in
+                if index % 3 == 0 {
+                    let hour = DateFormatterManager.shared.unixTimeToFormattedTime(
+                        element.dt,
+                        timeZoneId: result.timezone
+                    )
+                    return .init(
+                        dt: element.dt,
+                        temp: Int(element.temp),
+                        weather: element.weather,
+                        hour: hour
+                    )
+                }
+                return nil
+            }
+            
+            state.hourlyWeather[0].hour = "지금"
+            
+            state.dailyWeather = result.daily[0..<5].map {
+                let dayOfWeek = DateFormatterManager.shared.dayOfWeek(from: $0.dt)
+                return .init(
+                    dt: $0.dt,
+                    min: Int($0.temp.min),
+                    max: Int($0.temp.max),
+                    weather: $0.weather,
+                    dayOfWeek: dayOfWeek
+                )
+            }
+            
+            state.dailyWeather[0].dayOfWeek = "오늘"
+            
+            state.coordinates?.latitude = result.lat
+            state.coordinates?.longitude = result.lon
+            
+            let humidity = State.MeteorologicalFactorUpperDisplay(
+                name: "습도",
+                value: result.current.humidity
+            )
+            
+            let clouds = State.MeteorologicalFactorUpperDisplay(
+                name: "구름",
+                value: result.current.clouds
+            )
+            
+            state.meteorologicalFactorsUpper = [humidity, clouds]
+            
+            state.meteorologicalFactorLower.name = "바람 속도"
+            state.meteorologicalFactorLower.value = result.current.windSpeed
+            state.meteorologicalFactorLower.additionalValue = result.current.windGust ?? 0
+            
             state.isPresented = false
             return .none
         case .fetchError:
             print("조회 에러")
+            state.currentWeather.name = "Seoul"
+            return .none
+        case .none:
             return .none
         }
     }
