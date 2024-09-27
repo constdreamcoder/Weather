@@ -12,6 +12,11 @@ import Core
 
 final class SearchReducer: ReducerProtocol {
     struct State {
+        var isLoading: Bool = false {
+            didSet {
+                print(isLoading)
+            }
+        }
         var showAlert: Bool = false
         var isPresented: Bool = false
         var text: String = ""
@@ -82,8 +87,13 @@ final class SearchReducer: ReducerProtocol {
             state.showAlert = isPresented
             return .none
         case .onAppear:
+            state.isLoading = true
+            
+            // TODO: - 추후 Service로 만들기
             /// 최초 도시 정보 조회
             guard let initialCity = City.loadCityList().first (where: { $0.id == APIKeys.initialCityId }) else { return .none }
+            
+            state.isLoading = false
             return .publisher(
                 Just(.selectCity(city: initialCity)).eraseToAnyPublisher()
             )
@@ -94,12 +104,19 @@ final class SearchReducer: ReducerProtocol {
             state.isPresented = isPresented
             return .none
         case .write(let searchText):
+            state.isLoading = true
+
             state.searchText = searchText
+            // TODO: - 추후 Service로 만들기
             state.filteredCityList = City.loadCityList().filter {
                 $0.name.hasPrefix(searchText) || searchText == ""
             }
+            
+            state.isLoading = false
             return .none
         case .selectCity(let city):
+            state.isLoading = true
+            
             state.currentWeather.name = city.name
             return .publisher(
                 weatherService.getWeatherForecastInfo(
@@ -116,6 +133,7 @@ final class SearchReducer: ReducerProtocol {
             )
         case .fetchComplete(let result):
             print("완료")
+            
             state.currentWeather.description = result.current.weather[0].description
             state.currentWeather.temp = Int(result.current.temp)
             state.currentWeather.min = Int(result.daily[0].temp.min)
@@ -173,12 +191,17 @@ final class SearchReducer: ReducerProtocol {
             state.meteorologicalFactorLower.additionalValue = result.current.windGust ?? 0
             
             state.isPresented = false
+            
+            state.isLoading = false
             return .none
         case .fetchError:
             print("조회 에러")
             state.currentWeather.name = "Seoul"
+            
+            state.isLoading = false
             return .none
         case .none:
+            state.isLoading = false
             return .none
         }
     }
