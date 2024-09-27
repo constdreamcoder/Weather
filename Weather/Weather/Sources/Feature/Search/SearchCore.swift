@@ -52,11 +52,11 @@ final class SearchReducer: ReducerProtocol {
 //            var value: Int
 //        }
         
-        struct MeteorologicalFactorLowerDisplay {
-            var name: String = ""
-            var value: Double = 0
-            var additionalValue: Double = 0
-        }
+//        struct MeteorologicalFactorLowerDisplay {
+//            var name: String = ""
+//            var value: Double = 0
+//            var additionalValue: Double = 0
+//        }
         
         var searchText: String = ""
         var filteredCityList: [City] = City.loadCityList()
