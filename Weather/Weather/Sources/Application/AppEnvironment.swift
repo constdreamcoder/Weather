@@ -15,5 +15,6 @@ struct AppEnvironment {
         container.register(NetworkRouter(), type: NetworkRouterProtocol.self)
         
         container.register(WeatherService(), type: WeatherServiceProtocol.self)
+        container.register(CityService(), type: CityServiceProtocol.self)
     }
 }

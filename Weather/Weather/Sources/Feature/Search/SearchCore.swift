@@ -12,18 +12,17 @@ import Core
 
 final class SearchReducer: ReducerProtocol {
     struct State {
-        var isLoading: Bool = false {
-            didSet {
-                print(isLoading)
-            }
-        }
+        var isLoading: Bool = false
         var showAlert: Bool = false
         var isPresented: Bool = false
+        
+        // MARK: - 메인 화면 State
         var result: WeatherForecastResponse? = nil
         var cityName: String = ""
         
+        // MARK: - 검색 화면 State
         var searchText: String = ""
-        var filteredCityList: [City] = City.loadCityList()
+        var filteredCityList: [City] = []
     }
     
     enum Action {
@@ -38,6 +37,7 @@ final class SearchReducer: ReducerProtocol {
     }
     
     @Inject private var weatherService: WeatherServiceProtocol
+    @Inject private var cityService: CityServiceProtocol
     
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
@@ -45,11 +45,16 @@ final class SearchReducer: ReducerProtocol {
             state.showAlert = isPresented
             
         case .onAppear:
+            
             state.isLoading = true
             
-            // TODO: - 추후 Service로 만들기
+            let initialCityList = cityService.loadCityList()
+            
+            /// 화면에 보일 도시 목록 초기화
+            state.filteredCityList = initialCityList
+            
             /// 최초 도시 정보 조회
-            guard let initialCity = City.loadCityList().first (where: { $0.id == APIKeys.initialCityId }) else { return .none }
+            guard let initialCity = initialCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
             
             state.isLoading = false
             return .publisher(
@@ -64,8 +69,8 @@ final class SearchReducer: ReducerProtocol {
             
         case .write(let searchText):
             state.searchText = searchText
-            // TODO: - 추후 Service로 만들기
-            state.filteredCityList = City.loadCityList().filter {
+            
+            state.filteredCityList = cityService.loadCityList().filter {
                 $0.name.hasPrefix(searchText) || searchText == ""
             }
             
