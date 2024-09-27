@@ -18,110 +18,126 @@ struct MainView: View {
     )
     
     var body: some View {
-        ScrollView {
-            VStack(spacing:16) {
-                
-                SearchBar(text: .constant(""))
-                    .disabled(true)
-                    .onTapGesture {
-                        store.dispatch(.present(isPresented: true))
-                    }
-                
-                VStack(spacing: 4) {
-                    Text(store.state.currentWeather.name)
-                        .font(.system(size: 28))
-                    Text("\(store.state.currentWeather.temp)°")
-                        .font(.system(size: 64))
-                    Text(store.state.currentWeather.description)
-                        .font(.system(size: 24))
-                    Text("최고 \(store.state.currentWeather.max)° | 최저 \(store.state.currentWeather.min)°")
+        ZStack {
+            Color.blue.opacity(0.6)
+                .ignoresSafeArea()
+            
+            content
+                .onAppear {
+                    store.dispatch(.onAppear)
                 }
-                .foregroundStyle(.white)
-                
-                SectionView(
-                    title: "돌풍의 풍속은 최대 \(store.state.currentWeather.windGust)m/s입니다.",
-                    enableSeparator: true
-                ) {
-                    ScrollView(.horizontal) {
-                        LazyHStack(spacing: 24) {
-                            ForEach(store.state.hourlyWeather, id: \.dt) { hourlyWeather in
-                                HourlyWeatherView(hourlyWeather: hourlyWeather)
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        if store.state.isLoading {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .tint(.white)
+                .controlSize(.large)
+        } else {
+            ScrollView {
+                VStack(spacing:16) {
+                    
+                    SearchBar(text: .constant(""))
+                        .disabled(true)
+                        .onTapGesture {
+                            store.dispatch(.present(isPresented: true))
+                        }
+                    
+                    VStack(spacing: 4) {
+                        Text(store.state.currentWeather.name)
+                            .font(.system(size: 28))
+                        Text("\(store.state.currentWeather.temp)°")
+                            .font(.system(size: 64))
+                        Text(store.state.currentWeather.description)
+                            .font(.system(size: 24))
+                        Text("최고 \(store.state.currentWeather.max)° | 최저 \(store.state.currentWeather.min)°")
+                    }
+                    .foregroundStyle(.white)
+                    
+                    SectionView(
+                        title: "돌풍의 풍속은 최대 \(store.state.currentWeather.windGust)m/s입니다.",
+                        enableSeparator: true
+                    ) {
+                        ScrollView(.horizontal) {
+                            LazyHStack(spacing: 24) {
+                                ForEach(store.state.hourlyWeather, id: \.dt) { hourlyWeather in
+                                    HourlyWeatherView(hourlyWeather: hourlyWeather)
+                                }
                             }
                         }
                     }
-                }
-                
-                SectionView(
-                    title: "5일간의 일기예보",
-                    enableSeparator: true
-                ) {
-                    ForEach(store.state.dailyWeather, id: \.dt) { dailyWeather in
-                        VStack {
-                            DailyWeatherView(dailyWeather: dailyWeather)
-                            
-                            Divider()
-                                .background(.white)
+                    
+                    SectionView(
+                        title: "5일간의 일기예보",
+                        enableSeparator: true
+                    ) {
+                        ForEach(store.state.dailyWeather, id: \.dt) { dailyWeather in
+                            VStack {
+                                DailyWeatherView(dailyWeather: dailyWeather)
+                                
+                                Divider()
+                                    .background(.white)
+                            }
                         }
                     }
-                }
-                
-                SectionView(title: "강수량") {
-                    MapView(
-                        coordinates: .constant(store.state.coordinates)
-                    )
-                    .frame(maxWidth: .infinity)
-                    .aspectRatio(1, contentMode: .fill)
-                }
-                
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(store.state.meteorologicalFactorsUpper, id: \.id) { factor in
-                        WeatherInfoView(
-                            factorName: factor.name,
-                            value: "\(factor.value)%",
-                            additionalValue: ""
+                    
+                    SectionView(title: "강수량") {
+                        MapView(
+                            coordinates: .constant(store.state.coordinates)
                         )
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fill)
                     }
                     
-                    WeatherInfoView(
-                        factorName: store.state.meteorologicalFactorLower.name,
-                        value: "\(store.state.meteorologicalFactorLower.value)m/s",
-                        additionalValue: "\(store.state.meteorologicalFactorLower.additionalValue)m/s"
-                    )
-                }
-            }
-        }
-        .padding(.horizontal, 16)
-        .background(.blue.opacity(0.6))
-        .scrollIndicators(.hidden)
-        .fullScreenCover(
-            isPresented: Binding(
-                get: { store.state.isPresented },
-                set: { store.dispatch(.present(isPresented: $0)) }
-            )
-        ) {
-            SearchView()
-        }
-        .onAppear {
-            store.dispatch(.onAppear)
-        }
-        .alert(
-            "위치 정보 이용",
-            isPresented: Binding(
-                get: { store.state.showAlert },
-                set: { store.dispatch(.showAlert(isPresented: $0)) }
-            ),
-            actions: {
-                Button("이동") { 
-                    if let setting = URL(string: UIApplication.openSettingsURLString) {
-                        UIApplication.shared.open(setting)
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(store.state.meteorologicalFactorsUpper, id: \.id) { factor in
+                            WeatherInfoView(
+                                factorName: factor.name,
+                                value: "\(factor.value)%",
+                                additionalValue: ""
+                            )
+                        }
+                        
+                        WeatherInfoView(
+                            factorName: store.state.meteorologicalFactorLower.name,
+                            value: "\(store.state.meteorologicalFactorLower.value)m/s",
+                            additionalValue: "\(store.state.meteorologicalFactorLower.additionalValue)m/s"
+                        )
                     }
                 }
-                Button("취소", role: .cancel) {}
-            },
-            message: {
-                Text("위치 서비스를 사용할 수 없습니다. 기기 '설정>개인정보 보호'에서 위치 서비스를 켜주세요")
             }
-        )
+            .padding(.horizontal, 16)
+            .scrollIndicators(.hidden)
+            .fullScreenCover(
+                isPresented: Binding(
+                    get: { store.state.isPresented },
+                    set: { store.dispatch(.present(isPresented: $0)) }
+                )
+            ) {
+                SearchView()
+            }
+            .alert(
+                "위치 정보 이용",
+                isPresented: Binding(
+                    get: { store.state.showAlert },
+                    set: { store.dispatch(.showAlert(isPresented: $0)) }
+                ),
+                actions: {
+                    Button("이동") {
+                        if let setting = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(setting)
+                        }
+                    }
+                    Button("취소", role: .cancel) {}
+                },
+                message: {
+                    Text("위치 서비스를 사용할 수 없습니다. 기기 '설정>개인정보 보호'에서 위치 서비스를 켜주세요")
+                }
+            )
+        }
     }
     
 }
