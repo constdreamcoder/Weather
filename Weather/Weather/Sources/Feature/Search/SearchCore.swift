@@ -76,7 +76,6 @@ final class SearchReducer: ReducerProtocol {
         case selectCity(city: City)
         case fetchComplete(result: WeatherForecastResponse)
         case fetchError
-        case none
     }
     
     @Inject private var weatherService: WeatherServiceProtocol
@@ -85,7 +84,7 @@ final class SearchReducer: ReducerProtocol {
         switch action {
         case .showAlert(let isPresented):
             state.showAlert = isPresented
-            return .none
+            
         case .onAppear:
             state.isLoading = true
             
@@ -97,23 +96,20 @@ final class SearchReducer: ReducerProtocol {
             return .publisher(
                 Just(.selectCity(city: initialCity)).eraseToAnyPublisher()
             )
+            
         case .searchError:
             print("유저 위치 검색 오류")
-            return .none
+            
         case .present(let isPresented):
             state.isPresented = isPresented
-            return .none
+            
         case .write(let searchText):
-            state.isLoading = true
-
             state.searchText = searchText
             // TODO: - 추후 Service로 만들기
             state.filteredCityList = City.loadCityList().filter {
                 $0.name.hasPrefix(searchText) || searchText == ""
             }
             
-            state.isLoading = false
-            return .none
         case .selectCity(let city):
             state.isLoading = true
             
@@ -131,6 +127,7 @@ final class SearchReducer: ReducerProtocol {
                 }
                 .eraseToAnyPublisher()
             )
+            
         case .fetchComplete(let result):
             print("완료")
             
@@ -193,16 +190,14 @@ final class SearchReducer: ReducerProtocol {
             state.isPresented = false
             
             state.isLoading = false
-            return .none
+            
         case .fetchError:
             print("조회 에러")
             state.currentWeather.name = "Seoul"
             
             state.isLoading = false
-            return .none
-        case .none:
-            state.isLoading = false
-            return .none
         }
+        
+        return .none
     }
 }
