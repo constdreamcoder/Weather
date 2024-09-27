@@ -38,13 +38,13 @@ final class SearchReducer: ReducerProtocol {
         
         
         
-        struct DailyWeatherDisplay {
-            var dt: Int = 0
-            var min: Int = 0
-            var max: Int = 0
-            var weather: [WeatherDescription] = []
-            var dayOfWeek: String = ""
-        }
+//        struct DailyWeatherDisplay {
+//            var dt: Int = 0
+//            var min: Int = 0
+//            var max: Int = 0
+//            var weather: [WeatherDescription] = []
+//            var dayOfWeek: String = ""
+//        }
         
         struct MeteorologicalFactorUpperDisplay: Identifiable {
             let id = UUID()
