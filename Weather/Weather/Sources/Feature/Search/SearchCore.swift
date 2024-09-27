@@ -22,7 +22,7 @@ final class SearchReducer: ReducerProtocol {
         var text: String = ""
         var coordinates = CLLocationCoordinate2D()
         var currentWeather = CurrentWeatherSectionModel()
-        var hourlyWeather: [HourlyWeatherDisplay] = []
+        var hourlyWeather: [HourlyWeatherSectionModel] = []
         var dailyWeather: [DailyWeatherDisplay] = []
         var meteorologicalFactorsUpper: [MeteorologicalFactorUpperDisplay] = []
         var meteorologicalFactorLower = MeteorologicalFactorLowerDisplay()
@@ -36,12 +36,7 @@ final class SearchReducer: ReducerProtocol {
 //            var windGust: Int = 0
 //        }
         
-        struct HourlyWeatherDisplay {
-            var dt: Int = 0
-            var temp: Int = 0
-            var weather: [WeatherDescription] = []
-            var hour: String = ""
-        }
+        
         
         struct DailyWeatherDisplay {
             var dt: Int = 0

@@ -182,7 +182,7 @@ struct SectionView<Content>: View where Content : View {
 }
 
 struct HourlyWeatherView: View {
-    let hourlyWeather: SearchReducer.State.HourlyWeatherDisplay
+    let hourlyWeather: SearchReducer.State.HourlyWeatherSectionModel
     
     var body: some View {
         VStack(alignment: .center) {
