@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HTTPTask {
+public enum HTTPTask {
     case requestPlain
     case requestParameters(_ queryParameters: Parameters)
 }

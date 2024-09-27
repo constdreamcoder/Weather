@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Core
 
 enum WeatherEndpoint {
     case fetchWeatherForecastInfo(lat: Double, lon: Double)
