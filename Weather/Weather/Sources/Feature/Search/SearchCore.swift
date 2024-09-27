@@ -46,11 +46,11 @@ final class SearchReducer: ReducerProtocol {
 //            var dayOfWeek: String = ""
 //        }
         
-        struct MeteorologicalFactorUpperDisplay: Identifiable {
-            let id = UUID()
-            var name: String
-            var value: Int
-        }
+//        struct MeteorologicalFactorUpperDisplay: Identifiable {
+//            let id = UUID()
+//            var name: String
+//            var value: Int
+//        }
         
         struct MeteorologicalFactorLowerDisplay {
             var name: String = ""
