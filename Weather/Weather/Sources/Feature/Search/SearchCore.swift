@@ -28,7 +28,6 @@ final class SearchReducer: ReducerProtocol {
     enum Action {
         case showAlert(isPresented: Bool)
         case onAppear
-        case searchError // 삭제 예정
         case present(isPresented: Bool)
         case write(searchText: String)
         case selectCity(city: City)
@@ -48,10 +47,6 @@ final class SearchReducer: ReducerProtocol {
             
         case .onAppear:
             return initializeStatesAction(&state)
-            
-        // TODO: - 삭제 예정
-        case .searchError:
-            print("유저 위치 검색 오류")
             
         case .present(let isPresented):
             state.isPresented = isPresented
