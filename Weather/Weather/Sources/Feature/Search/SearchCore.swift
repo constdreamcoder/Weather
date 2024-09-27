@@ -28,7 +28,7 @@ final class SearchReducer: ReducerProtocol {
     enum Action {
         case showAlert(isPresented: Bool)
         case onAppear
-        case searchError
+        case searchError // 삭제 예정
         case present(isPresented: Bool)
         case write(searchText: String)
         case selectCity(city: City)
@@ -46,21 +46,9 @@ final class SearchReducer: ReducerProtocol {
             
         case .onAppear:
             
-            state.isLoading = true
+            return initializeStatesAction(&state)
             
-            let initialCityList = cityService.loadCityList()
-            
-            /// 화면에 보일 도시 목록 초기화
-            state.filteredCityList = initialCityList
-            
-            /// 최초 도시 정보 조회
-            guard let initialCity = initialCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
-            
-            state.isLoading = false
-            return .publisher(
-                Just(.selectCity(city: initialCity)).eraseToAnyPublisher()
-            )
-            
+        // TODO: - 삭제 예정
         case .searchError:
             print("유저 위치 검색 오류")
             
@@ -68,43 +56,74 @@ final class SearchReducer: ReducerProtocol {
             state.isPresented = isPresented
             
         case .write(let searchText):
-            state.searchText = searchText
-            
-            state.filteredCityList = cityService.loadCityList().filter {
-                $0.name.hasPrefix(searchText) || searchText == ""
-            }
+            filterCities(&state, searchText: searchText)
             
         case .selectCity(let city):
-            state.isLoading = true
-            
-            state.cityName = city.name
-            return .publisher(
-                weatherService.getWeatherForecastInfo(
-                    lat: city.coord.lat,
-                    lon: city.coord.lon
-                )
-                .map { weatherForecastResponse in
-                    Action.fetchComplete(result: weatherForecastResponse)
-                }
-                .catch { error in
-                    Just(Action.fetchError)
-                }
-                .eraseToAnyPublisher()
-            )
+            return getCityWeatherForecastInfoEffect(&state, selectedCity: city)
             
         case .fetchComplete(let result):
             print("완료")
-            
-            state.result = result
-            state.isPresented = false
-            state.isLoading = false
+            completeFetching(&state, result: result)
             
         case .fetchError:
             print("조회 에러")
-            
             state.isLoading = false
         }
         
         return .none
+    }
+}
+
+private extension SearchReducer {
+    func initializeStatesAction(_ state: inout State) -> Effect {
+        
+        state.isLoading = true
+        
+        let initialCityList = cityService.loadCityList()
+        
+        /// 화면에 보일 도시 목록 초기화
+        state.filteredCityList = initialCityList
+        
+        /// 최초 도시 정보 조회
+        guard let initialCity = initialCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
+        
+        state.isLoading = false
+        
+        return .publisher(
+            Just(.selectCity(city: initialCity)).eraseToAnyPublisher()
+        )
+    }
+    
+    func filterCities(_ state: inout State, searchText: String) {
+        state.searchText = searchText
+        
+        state.filteredCityList = cityService.loadCityList().filter {
+            $0.name.hasPrefix(searchText) || searchText == ""
+        }
+    }
+    
+    func getCityWeatherForecastInfoEffect(_ state: inout State, selectedCity: City) -> Effect {
+        state.isLoading = true
+        
+        state.cityName = selectedCity.name
+        return .publisher(
+            weatherService.getWeatherForecastInfo(
+                lat: selectedCity.coord.lat,
+                lon: selectedCity.coord.lon
+            )
+            .map { weatherForecastResponse in
+                Action.fetchComplete(result: weatherForecastResponse)
+            }
+            .catch { error in
+                Just(Action.fetchError)
+            }
+            .eraseToAnyPublisher()
+        )
+    }
+    
+    func completeFetching(_ state: inout State, result: WeatherForecastResponse) {
+        state.result = result
+        state.isPresented = false
+        state.isLoading = false
     }
 }
