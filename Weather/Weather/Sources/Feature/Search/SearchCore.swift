@@ -21,20 +21,20 @@ final class SearchReducer: ReducerProtocol {
         var isPresented: Bool = false
         var text: String = ""
         var coordinates = CLLocationCoordinate2D()
-        var currentWeather = CurrentWeatherDisplay()
+        var currentWeather = CurrentWeatherSectionModel()
         var hourlyWeather: [HourlyWeatherDisplay] = []
         var dailyWeather: [DailyWeatherDisplay] = []
         var meteorologicalFactorsUpper: [MeteorologicalFactorUpperDisplay] = []
         var meteorologicalFactorLower = MeteorologicalFactorLowerDisplay()
         
-        struct CurrentWeatherDisplay {
-            var name: String = "Seoul"
-            var temp: Int = 0
-            var description: String = "맑음"
-            var min: Int = 0
-            var max: Int = 0
-            var windGust: Int = 0
-        }
+//        struct CurrentWeatherDisplay {
+//            var name: String = "Seoul"
+//            var temp: Int = 0
+//            var description: String = "맑음"
+//            var min: Int = 0
+//            var max: Int = 0
+//            var windGust: Int = 0
+//        }
         
         struct HourlyWeatherDisplay {
             var dt: Int = 0
