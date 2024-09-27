@@ -8,10 +8,10 @@
 import Foundation
 
 @propertyWrapper
-struct Inject<T> {
-    let wrappedValue: T
+public struct Inject<T> {
+    public let wrappedValue: T
     
-    init() {
+    public init() {
         self.wrappedValue = DIContainer.shared.resolve(type: T.self)
     }
 }

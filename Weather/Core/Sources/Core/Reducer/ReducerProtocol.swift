@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol ReducerProtocol {
+public protocol ReducerProtocol {
     associatedtype State
     associatedtype Action
     
@@ -17,7 +17,7 @@ protocol ReducerProtocol {
     func reduce(state: inout State, action: Action) -> Effect
 }
 
-enum EffectType<Action> {
+public enum EffectType<Action> {
     case none
     case publisher(AnyPublisher<Action, Never>)
 }

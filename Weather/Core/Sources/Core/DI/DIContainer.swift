@@ -7,18 +7,18 @@
 
 import Foundation
 
-final class DIContainer {
+public final class DIContainer {
     
     private var storage: [String: Any] = [:]
     
-    static let shared = DIContainer()
+    public static let shared = DIContainer()
     private init() {}
     
-    func register<T>(_ object: T, type: T.Type) {
+    public func register<T>(_ object: T, type: T.Type) {
         storage["\(type)"] = object
     }
     
-    func resolve<T>(type: T.Type) -> T {
+    public func resolve<T>(type: T.Type) -> T {
         guard let object = storage["\(type)"] as? T else {
             fatalError("\(type)에 해당하는 객체가 등록되지 않았습니다.")
         }

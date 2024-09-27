@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreLocation
+import Core
 
 final class SearchReducer: ReducerProtocol {
     struct State {

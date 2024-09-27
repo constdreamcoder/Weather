@@ -7,10 +7,10 @@
 
 import Foundation
 
-typealias HTTPHeaders = [String: String]
-typealias Parameters = [String: String]
+public typealias HTTPHeaders = [String: String]
+public typealias Parameters = [String: String]
 
-protocol EndPointType {
+public protocol EndPointType {
     var baseURL: URL { get }
     var path: String { get }
     var httpMethod: HTTPMethod { get }
@@ -21,7 +21,7 @@ protocol EndPointType {
 }
 
 extension EndPointType {
-    func buildURLRequest() -> URLRequest {
+    public func buildURLRequest() -> URLRequest {
         var url: URL = baseURL
         url.appendPathComponent(path)
         

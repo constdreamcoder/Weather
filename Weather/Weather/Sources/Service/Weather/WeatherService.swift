@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Core
 
 protocol WeatherServiceProtocol {
     func getWeatherForecastInfo(lat: Double, lon: Double) -> AnyPublisher<WeatherForecastResponse, Error>

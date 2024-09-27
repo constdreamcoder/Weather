@@ -8,16 +8,16 @@
 import Foundation
 import Combine
 
-final class Store<State, Action>: ObservableObject {
+public final class Store<State, Action>: ObservableObject {
     
-    @Published private(set) var state: State
+    @Published public private(set) var state: State
     
     private let reducer: AnyReducer<State, Action>
     
     private let queue = DispatchQueue(label: "serial_queue", qos: .userInitiated)
     private var cancellables = Set<AnyCancellable>()
     
-    init<R: ReducerProtocol>(
+    public init<R: ReducerProtocol>(
         intialState: State,
         reducer: R
     ) where R.Action == Action, R.State == State {
@@ -25,7 +25,7 @@ final class Store<State, Action>: ObservableObject {
         self.reducer = AnyReducer(reducer)
     }
     
-    func dispatch(_ action: Action) {
+    public func dispatch(_ action: Action) {
         queue.sync { [weak self] in
             guard let self else { return }
             dispatch(&state, action)

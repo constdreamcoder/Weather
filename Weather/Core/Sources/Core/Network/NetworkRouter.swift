@@ -8,21 +8,21 @@
 import Foundation
 import Combine
 
-protocol NetworkRouterProtocol {
+public protocol NetworkRouterProtocol {
     func request<T: Decodable>(with endPoint: EndPointType, type: T.Type) -> AnyPublisher<T, Error>
 }
 
-final class NetworkRouter: NetworkRouterProtocol {
+public final class NetworkRouter: NetworkRouterProtocol {
     
     private let session: URLSession
     private let decoder = JSONDecoder()
     
-    init(session: URLSession = .shared) {
+    public init(session: URLSession = .shared) {
         self.session = session
     }
     
     /// 네트워크 요청 생성
-    func request<T: Decodable>(with endPoint: EndPointType, type: T.Type) -> AnyPublisher<T, Error> {
+    public func request<T: Decodable>(with endPoint: EndPointType, type: T.Type) -> AnyPublisher<T, Error> {
         let urlRequest = endPoint.buildURLRequest()
         
         return requestData(with: urlRequest.url!)
@@ -42,5 +42,4 @@ final class NetworkRouter: NetworkRouterProtocol {
             }
             .eraseToAnyPublisher()
     }
-    
 }

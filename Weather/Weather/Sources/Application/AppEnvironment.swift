@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Core
 
 struct AppEnvironment {
     let container = DIContainer.shared
