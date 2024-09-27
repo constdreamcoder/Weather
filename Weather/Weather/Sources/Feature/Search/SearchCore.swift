@@ -39,13 +39,14 @@ final class SearchReducer: ReducerProtocol {
     @Inject private var weatherService: WeatherServiceProtocol
     @Inject private var cityService: CityServiceProtocol
     
+    private var totalCityList: [City] = []
+    
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
         case .showAlert(let isPresented):
             state.showAlert = isPresented
             
         case .onAppear:
-            
             return initializeStatesAction(&state)
             
         // TODO: - 삭제 예정
@@ -79,13 +80,13 @@ private extension SearchReducer {
         
         state.isLoading = true
         
-        let initialCityList = cityService.loadCityList()
+        self.totalCityList = cityService.loadCityList()
         
         /// 화면에 보일 도시 목록 초기화
-        state.filteredCityList = initialCityList
+        state.filteredCityList = self.totalCityList
         
         /// 최초 도시 정보 조회
-        guard let initialCity = initialCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
+        guard let initialCity = self.totalCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
         
         state.isLoading = false
         
@@ -97,7 +98,7 @@ private extension SearchReducer {
     func filterCities(_ state: inout State, searchText: String) {
         state.searchText = searchText
         
-        state.filteredCityList = cityService.loadCityList().filter {
+        state.filteredCityList = self.totalCityList.filter {
             $0.name.hasPrefix(searchText) || searchText == ""
         }
     }
