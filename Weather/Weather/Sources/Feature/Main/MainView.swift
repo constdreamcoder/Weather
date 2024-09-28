@@ -91,7 +91,7 @@ struct MainContentView: View {
     }
 }
 
-struct SectionView<Content>: View where Content : View {
+struct MainSectionFrame<Content>: View where Content : View {
     
     private let title: String
     private let enableSeparator: Bool

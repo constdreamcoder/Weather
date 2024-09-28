@@ -11,7 +11,7 @@ struct DailyWeatherSection: View {
     let model: DailyWeatherSectionModel
     
     var body: some View {
-        SectionView(
+        MainSectionFrame(
             title: "5일간의 일기예보",
             enableSeparator: true
         ) {

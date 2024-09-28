@@ -46,13 +46,7 @@ final class SearchReducer: ReducerProtocol {
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
         case .startNetworkMonitoring:
-            return .publisher(
-                networkMonitor.isConnected
-                    .map { isConnected in
-                        Action.showNetworkWaring(isConnected: isConnected)
-                    }
-                    .eraseToAnyPublisher()
-            )
+            return startNetworkMonitoringEffet()
             
         case .showNetworkWaring(let isConnected):
             state.isConnected = isConnected
@@ -61,27 +55,19 @@ final class SearchReducer: ReducerProtocol {
             return initializeStatesAction(&state)
             
         case .refresh:
-            if state.showingState != .initial {
-                if state.result == nil && state.selectedCity != nil {
-                    return .publisher(Just(.initialize).eraseToAnyPublisher())
-                } else {
-                    if let selectedCity = state.selectedCity {
-                        return .publisher(Just(.selectCity(city: selectedCity)).eraseToAnyPublisher())
-                    }
-                }
-            }
+            return refreshEffect(&state)
             
         case .present(let isPresented):
             state.isPresented = isPresented
             
         case .write(let searchText):
-            filterCities(&state, searchText: searchText)
+            searchCitiesAction(&state, searchText: searchText)
             
         case .selectCity(let city):
             return getCityWeatherForecastInfoEffect(&state, selectedCity: city)
             
         case .fetchComplete(let result):
-            completeFetching(&state, result: result)
+            completeFetchingAction(&state, result: result)
             
         case .fetchError(let error):
             print("조회 에러: ", error)
@@ -93,15 +79,23 @@ final class SearchReducer: ReducerProtocol {
 }
 
 private extension SearchReducer {
+    func startNetworkMonitoringEffet() -> Effect {
+        return .publisher(
+            networkMonitor.isConnected
+                .map { isConnected in
+                    Action.showNetworkWaring(isConnected: isConnected)
+                }
+                .eraseToAnyPublisher()
+        )
+    }
+    
     func initializeStatesAction(_ state: inout State) -> Effect {
         
         state.showingState = .loading
         
         self.totalCityList = cityService.loadCityList()
-        
         /// 화면에 보일 도시 목록 초기화
         state.filteredCityList = self.totalCityList
-        
         /// 최초 도시 정보 조회
         guard let initialCity = self.totalCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
                 
@@ -110,7 +104,19 @@ private extension SearchReducer {
         )
     }
     
-    func filterCities(_ state: inout State, searchText: String) {
+    func refreshEffect(_ state: inout State) -> Effect {
+        guard state.showingState != .initial else { return .none }
+        
+        if state.result == nil, let selectedCity = state.selectedCity {
+            return .publisher(Just(.initialize).eraseToAnyPublisher())
+        } else if let selectedCity = state.selectedCity {
+            return .publisher(Just(.selectCity(city: selectedCity)).eraseToAnyPublisher())
+        }
+        
+        return .none
+    }
+    
+    func searchCitiesAction(_ state: inout State, searchText: String) {
         state.searchText = searchText
         
         state.filteredCityList = self.totalCityList.filter {
@@ -137,7 +143,7 @@ private extension SearchReducer {
         )
     }
     
-    func completeFetching(_ state: inout State, result: WeatherForecastResponse) {
+    func completeFetchingAction(_ state: inout State, result: WeatherForecastResponse) {
         state.result = result
         state.isPresented = false
         state.showingState = .showingResult

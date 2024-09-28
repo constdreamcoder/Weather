@@ -11,7 +11,7 @@ struct HourlyWeatherSection: View {
     let model: HourlyWeatherSectionModel
     
     var body: some View {
-        SectionView(
+        MainSectionFrame(
             title: "돌풍의 풍속은 최대 \(model.windGust)m/s입니다.",
             enableSeparator: true
         ) {

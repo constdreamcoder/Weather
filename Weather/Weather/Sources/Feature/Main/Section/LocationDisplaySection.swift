@@ -11,7 +11,7 @@ struct LocationDisplaySection: View {
     let model: LocationDisplaySectionModel
     
     var body: some View {
-        SectionView(title: "강수량") {
+        MainSectionFrame(title: "강수량") {
             MapView(
                 coordinates: .constant(model.coordinate)
             )
