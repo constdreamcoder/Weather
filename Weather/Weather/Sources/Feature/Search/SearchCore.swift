@@ -12,13 +12,18 @@ import Core
 
 final class SearchReducer: ReducerProtocol {
     struct State {
-        var isLoading: Bool = false
+        var showingState: ShowingState = .initial {
+            didSet {
+                print("showingState", showingState)
+            }
+        }
         var showAlert: Bool = false
         var isPresented: Bool = false
+        var isConnected: Bool = true
         
         // MARK: - 메인 화면 State
         var result: WeatherForecastResponse? = nil
-        var cityName: String = ""
+        var selectedCity: City? = nil
         
         // MARK: - 검색 화면 State
         var searchText: String = ""
@@ -26,27 +31,50 @@ final class SearchReducer: ReducerProtocol {
     }
     
     enum Action {
-        case showAlert(isPresented: Bool)
-        case onAppear
+        case startNetworkMonitoring
+        case showNetworkWaring(isConnected: Bool)
+        case initialize
+        case refresh
         case present(isPresented: Bool)
         case write(searchText: String)
         case selectCity(city: City)
         case fetchComplete(result: WeatherForecastResponse)
-        case fetchError
+        case fetchError(Error)
     }
     
     @Inject private var weatherService: WeatherServiceProtocol
     @Inject private var cityService: CityServiceProtocol
+    @Inject private var networkMonitor: NetworkMonitoringServiceProtocol
     
     private var totalCityList: [City] = []
     
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
-        case .showAlert(let isPresented):
-            state.showAlert = isPresented
+        case .startNetworkMonitoring:
+            return .publisher(
+                networkMonitor.isConnected
+                    .map { isConnected in
+                        Action.showNetworkWaring(isConnected: isConnected)
+                    }
+                    .eraseToAnyPublisher()
+            )
             
-        case .onAppear:
+        case .showNetworkWaring(let isConnected):
+            state.isConnected = isConnected
+            
+        case .initialize:
             return initializeStatesAction(&state)
+            
+        case .refresh:
+            if state.showingState != .initial {
+                if state.result == nil && state.selectedCity != nil {
+                    return .publisher(Just(.initialize).eraseToAnyPublisher())
+                } else {
+                    if let selectedCity = state.selectedCity {
+                        return .publisher(Just(.selectCity(city: selectedCity)).eraseToAnyPublisher())
+                    }
+                }
+            }
             
         case .present(let isPresented):
             state.isPresented = isPresented
@@ -61,9 +89,9 @@ final class SearchReducer: ReducerProtocol {
             print("완료")
             completeFetching(&state, result: result)
             
-        case .fetchError:
-            print("조회 에러")
-            state.isLoading = false
+        case .fetchError(let error):
+            print("조회 에러: ", error)
+            
         }
         
         return .none
@@ -73,7 +101,7 @@ final class SearchReducer: ReducerProtocol {
 private extension SearchReducer {
     func initializeStatesAction(_ state: inout State) -> Effect {
         
-        state.isLoading = true
+        state.showingState = .loading
         
         self.totalCityList = cityService.loadCityList()
         
@@ -82,9 +110,7 @@ private extension SearchReducer {
         
         /// 최초 도시 정보 조회
         guard let initialCity = self.totalCityList.first(where: { $0.id == APIKeys.initialCityId }) else { return .none }
-        
-        state.isLoading = false
-        
+                
         return .publisher(
             Just(.selectCity(city: initialCity)).eraseToAnyPublisher()
         )
@@ -99,9 +125,9 @@ private extension SearchReducer {
     }
     
     func getCityWeatherForecastInfoEffect(_ state: inout State, selectedCity: City) -> Effect {
-        state.isLoading = true
+        state.showingState = .loading
         
-        state.cityName = selectedCity.name
+        state.selectedCity = selectedCity
         return .publisher(
             weatherService.getWeatherForecastInfo(
                 lat: selectedCity.coord.lat,
@@ -111,7 +137,7 @@ private extension SearchReducer {
                 Action.fetchComplete(result: weatherForecastResponse)
             }
             .catch { error in
-                Just(Action.fetchError)
+                Just(Action.fetchError(error))
             }
             .eraseToAnyPublisher()
         )
@@ -120,6 +146,14 @@ private extension SearchReducer {
     func completeFetching(_ state: inout State, result: WeatherForecastResponse) {
         state.result = result
         state.isPresented = false
-        state.isLoading = false
+        state.showingState = .showingResult
+    }
+}
+
+extension SearchReducer.State {
+    enum ShowingState {
+        case initial
+        case loading
+        case showingResult
     }
 }
