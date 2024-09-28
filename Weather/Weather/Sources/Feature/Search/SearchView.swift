@@ -27,10 +27,20 @@ struct SearchView: View {
             )
             .padding(.horizontal, 16)
             
-            showingList
+            if store.state.filteredCityList.isEmpty {
+                Text("검색 내용이 존재하지 않습니다.")
+                    .foregroundStyle(.white)
+                    .font(.system(size: 24, weight: .regular))
+                    .frame(maxHeight: .infinity)
+            } else {
+                showingList
+            }
         }
         .background(.blue.opacity(0.6))
         .scrollIndicators(.hidden)
+        .onAppear {
+            store.dispatch(.write(searchText: ""))
+        }
     }
     
     // MARK: - Private Methods
