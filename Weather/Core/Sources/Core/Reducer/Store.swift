@@ -14,7 +14,7 @@ public final class Store<State, Action>: ObservableObject {
     
     private let reducer: AnyReducer<State, Action>
     
-    private let queue = DispatchQueue(label: "serial_queue", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "StoreQueue", qos: .userInitiated)
     private var cancellables = Set<AnyCancellable>()
     
     public init<R: ReducerProtocol>(

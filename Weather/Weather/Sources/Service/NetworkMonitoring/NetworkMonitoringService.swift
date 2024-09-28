@@ -18,7 +18,7 @@ final class NetworkMonitoringService: NetworkMonitoringServiceProtocol {
     var isConnected = CurrentValueSubject<Bool, Never>(true)
     
     private let monitor = NWPathMonitor()
-    private let queue = DispatchQueue(label: "NetworkMonitorQueue", qos: .background)
+    private let queue = DispatchQueue(label: "NetworkMonitoringQueue", qos: .background)
     
     init() {
         monitor.pathUpdateHandler = {  path in

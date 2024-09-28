@@ -12,12 +12,7 @@ import Core
 
 final class SearchReducer: ReducerProtocol {
     struct State {
-        var showingState: ShowingState = .initial {
-            didSet {
-                print("showingState", showingState)
-            }
-        }
-        var showAlert: Bool = false
+        var showingState: ShowingState = .initial
         var isPresented: Bool = false
         var isConnected: Bool = true
         
@@ -86,7 +81,6 @@ final class SearchReducer: ReducerProtocol {
             return getCityWeatherForecastInfoEffect(&state, selectedCity: city)
             
         case .fetchComplete(let result):
-            print("완료")
             completeFetching(&state, result: result)
             
         case .fetchError(let error):

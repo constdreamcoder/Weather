@@ -47,7 +47,6 @@ struct MainView: View {
             MainContentView()
         }
     }
-    
 }
 
 #Preview {

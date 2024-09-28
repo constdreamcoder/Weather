@@ -21,7 +21,7 @@ public final class NetworkRouter: NetworkRouterProtocol {
         self.session = session
     }
     
-    /// 네트워크 요청 생성
+    /// 네트워크 요청
     public func request<T: Decodable>(with endPoint: EndPointType, type: T.Type) -> AnyPublisher<T, Error> {
         let urlRequest = endPoint.buildURLRequest()
         
@@ -30,7 +30,7 @@ public final class NetworkRouter: NetworkRouterProtocol {
             .eraseToAnyPublisher()
     }
     
-    func requestData(with url: URL) -> AnyPublisher<Data, Error> {
+    private func requestData(with url: URL) -> AnyPublisher<Data, Error> {
         return session.dataTaskPublisher(for: url)
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,

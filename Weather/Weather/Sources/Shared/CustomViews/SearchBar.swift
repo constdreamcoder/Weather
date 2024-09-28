@@ -28,8 +28,7 @@ struct SearchBar: View {
                 EmptyView()
             }
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 8)
+        .padding(8)
         .foregroundStyle(.secondary)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(8, corners: .allCorners)
