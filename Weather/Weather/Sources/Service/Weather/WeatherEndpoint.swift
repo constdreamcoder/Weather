@@ -49,6 +49,4 @@ extension WeatherEndpoint: EndPointType {
     var headers: HTTPHeaders {
         return [:]
     }
-    
-    
 }
