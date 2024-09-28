@@ -13,6 +13,7 @@ protocol WeatherServiceProtocol {
     func getWeatherForecastInfo(lat: Double, lon: Double) -> AnyPublisher<WeatherForecastResponse, Error>
 }
 
+/// 날씨 정보 조회 서비스
 struct WeatherService: WeatherServiceProtocol {
     
     @Inject private var router: NetworkRouterProtocol

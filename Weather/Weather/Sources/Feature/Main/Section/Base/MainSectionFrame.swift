@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+/// 메인 화면 각 섹션 뷰 기본 Frame
 struct MainSectionFrame<Content>: View where Content : View {
     
     private let title: String

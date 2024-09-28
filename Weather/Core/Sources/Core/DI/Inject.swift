@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Property Wrapper를 통한 의존성 주입 정의
 @propertyWrapper
 public struct Inject<T> {
     public let wrappedValue: T

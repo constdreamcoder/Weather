@@ -8,9 +8,14 @@
 import SwiftUI
 import Core
 
+/// 메인 화면
 struct MainView: View {
     
+    // MARK: - Properties
+    
     @EnvironmentObject private var store: Store<SearchReducer.State, SearchReducer.Action>
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
@@ -33,6 +38,8 @@ struct MainView: View {
         .animation(.easeInOut, value: store.state.isConnected)
     }
     
+    // MARK: - Private Methods
+    
     @ViewBuilder
     private var content: some View {
         switch store.state.showingState {
@@ -44,20 +51,12 @@ struct MainView: View {
                 .tint(.white)
                 .controlSize(.large)
         case .showingResult:
-            MainContentView()
+            mainContents
         }
     }
-}
-
-#Preview {
-    MainView()
-}
-
-struct MainContentView: View {
-
-    @EnvironmentObject private var store: Store<SearchReducer.State, SearchReducer.Action>
-
-    var body: some View {
+    
+    /// 메인 화면 컨텐츠 표시 뷰
+    private var mainContents: some View {
         ScrollView {
             VStack(spacing:16) {
                 
@@ -67,7 +66,7 @@ struct MainContentView: View {
                         store.dispatch(.present(isPresented: true))
                     }
                 
-                CurrentWeatherSection(model: .init(from: store.state.result, with: store.state.selectedCity?.name ?? ""))
+                CurrentWeatherSection(model: .init(from: store.state.result, with: store.state.selectedCity))
                 
                 HourlyWeatherSection(model: .init(from: store.state.result))
                 
@@ -91,29 +90,8 @@ struct MainContentView: View {
     }
 }
 
-struct NetworkWorningView: View {
-    var body: some View {
-        VStack {
-            Image(.noNetwork)
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
-                .frame(width: 300)
-                .cornerRadius(16, corners: .allCorners)
-            
-            Text("오프라인 상태인 것 같아요!!")
-                .foregroundStyle(.white)
-                .font(.system(size: 28, weight: .bold))
-            
-            Spacer()
-                .frame(height: 16)
-            
-            Text("다시 연결하시면 최신 날씨 정보를 보여드릴게요!")
-                .foregroundStyle(.white)
-                .font(.system(size: 18, weight: .medium))
-                .multilineTextAlignment(.center)
-            
-            Spacer()
-                .frame(height: 80)
-        }
-    }
+// MARK: - Preview
+
+#Preview {
+    MainView()
 }

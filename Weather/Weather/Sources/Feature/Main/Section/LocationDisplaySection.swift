@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 도시 위치를 보여주는 섹션
 struct LocationDisplaySection: View {
     let model: LocationDisplaySectionModel
     

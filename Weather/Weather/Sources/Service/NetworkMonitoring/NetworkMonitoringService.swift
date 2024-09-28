@@ -13,6 +13,7 @@ protocol NetworkMonitoringServiceProtocol {
     var isConnected: CurrentValueSubject<Bool, Never> { get }
 }
 
+/// 네트워크 모니터링 서비스
 final class NetworkMonitoringService: NetworkMonitoringServiceProtocol {
     
     var isConnected = CurrentValueSubject<Bool, Never>(true)

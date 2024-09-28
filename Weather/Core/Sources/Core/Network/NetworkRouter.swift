@@ -12,6 +12,7 @@ public protocol NetworkRouterProtocol {
     func request<T: Decodable>(with endPoint: EndPointType, type: T.Type) -> AnyPublisher<T, Error>
 }
 
+/// 네트워크 요청 Router 정의
 public final class NetworkRouter: NetworkRouterProtocol {
     
     private let session: URLSession
@@ -30,6 +31,7 @@ public final class NetworkRouter: NetworkRouterProtocol {
             .eraseToAnyPublisher()
     }
     
+    /// 네트워크 응답 처리
     private func requestData(with url: URL) -> AnyPublisher<Data, Error> {
         return session.dataTaskPublisher(for: url)
             .tryMap { data, response in

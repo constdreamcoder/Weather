@@ -30,6 +30,8 @@
 		00CEC74B2CA7FA9B00FE9BEC /* NetworkMonitoringService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEC7492CA7FA9B00FE9BEC /* NetworkMonitoringService.swift */; };
 		00CEC74D2CA855F800FE9BEC /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEC74C2CA855F800FE9BEC /* JSONLoader.swift */; };
 		00CEC7512CA8602800FE9BEC /* MainSectionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEC7502CA8602800FE9BEC /* MainSectionFrame.swift */; };
+		00CEC7532CA8630B00FE9BEC /* WeatherInfoFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEC7522CA8630B00FE9BEC /* WeatherInfoFrame.swift */; };
+		00CEC7552CA8679900FE9BEC /* NetworkWorningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEC7542CA8679900FE9BEC /* NetworkWorningView.swift */; };
 		00F12D072CA2B62B00395DA4 /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F12D062CA2B62B00395DA4 /* WeatherApp.swift */; };
 		00F12D0B2CA2B62C00395DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F12D0A2CA2B62C00395DA4 /* Assets.xcassets */; };
 		00F12D0E2CA2B62C00395DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F12D0D2CA2B62C00395DA4 /* Preview Assets.xcassets */; };
@@ -67,6 +69,8 @@
 		00CEC7492CA7FA9B00FE9BEC /* NetworkMonitoringService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringService.swift; sourceTree = "<group>"; };
 		00CEC74C2CA855F800FE9BEC /* JSONLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
 		00CEC7502CA8602800FE9BEC /* MainSectionFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionFrame.swift; sourceTree = "<group>"; };
+		00CEC7522CA8630B00FE9BEC /* WeatherInfoFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoFrame.swift; sourceTree = "<group>"; };
+		00CEC7542CA8679900FE9BEC /* NetworkWorningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorningView.swift; sourceTree = "<group>"; };
 		00F12D032CA2B62B00395DA4 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F12D062CA2B62B00395DA4 /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		00F12D0A2CA2B62C00395DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				00CEC7502CA8602800FE9BEC /* MainSectionFrame.swift */,
+				00CEC7522CA8630B00FE9BEC /* WeatherInfoFrame.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				00F12D2C2CA2DF5100395DA4 /* SearchBar.swift */,
+				00CEC7542CA8679900FE9BEC /* NetworkWorningView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -424,10 +430,12 @@
 				0051D2D22CA5BF68008DFBDF /* AppEnvironment.swift in Sources */,
 				00BD176B2CA6938B002CA2D7 /* HourlyWeatherSection.swift in Sources */,
 				00BD17772CA69F4B002CA2D7 /* MeteorologicalFactorSection.swift in Sources */,
+				00CEC7532CA8630B00FE9BEC /* WeatherInfoFrame.swift in Sources */,
 				00BD176D2CA694F8002CA2D7 /* DailyWeatherSection.swift in Sources */,
 				00CEC7512CA8602800FE9BEC /* MainSectionFrame.swift in Sources */,
 				00BD175E2CA68DF5002CA2D7 /* CurrentWeatherSectionModel.swift in Sources */,
 				00371CC62CA3BECC004DE4BA /* WeatherService.swift in Sources */,
+				00CEC7552CA8679900FE9BEC /* NetworkWorningView.swift in Sources */,
 				00CEC74D2CA855F800FE9BEC /* JSONLoader.swift in Sources */,
 				00BD17732CA698A9002CA2D7 /* LocationDisplaySectionModel.swift in Sources */,
 				00CEC74B2CA7FA9B00FE9BEC /* NetworkMonitoringService.swift in Sources */,

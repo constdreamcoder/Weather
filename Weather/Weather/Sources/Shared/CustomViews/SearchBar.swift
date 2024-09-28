@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 검색바
 struct SearchBar: View {
     
     @Binding var text: String

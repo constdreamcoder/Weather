@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 네트워크 단절 경고 알림 뷰
 struct NetworkWorningView: View {
     var body: some View {
         VStack {

@@ -12,6 +12,7 @@ protocol CityServiceProtocol {
     func loadCityList() -> [City]
 }
 
+/// 도시 목록 조회 서비스
 struct CityService: CityServiceProtocol {
     func loadCityList() -> [City] {
         do {

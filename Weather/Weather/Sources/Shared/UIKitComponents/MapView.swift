@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 import MapKit
 
+/// 맵 뷰
 struct MapView: UIViewRepresentable {
     
     @Binding var coordinates: CLLocationCoordinate2D?

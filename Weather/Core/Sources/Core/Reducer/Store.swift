@@ -8,8 +8,12 @@
 import Foundation
 import Combine
 
+/// State와 Reducer를 관리하는 Store 정의
 public final class Store<State, Action>: ObservableObject {
     
+    // MARK: - Properties
+
+    /// 관찰 가능한 Store의 상태값
     @Published public private(set) var state: State
     
     private let reducer: AnyReducer<State, Action>
@@ -17,6 +21,8 @@ public final class Store<State, Action>: ObservableObject {
     private let queue = DispatchQueue(label: "StoreQueue", qos: .userInitiated)
     private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Initialization
+
     public init<R: ReducerProtocol>(
         intialState: State,
         reducer: R
@@ -25,12 +31,16 @@ public final class Store<State, Action>: ObservableObject {
         self.reducer = AnyReducer(reducer)
     }
     
+    // MARK: - Public Methods
+
     public func dispatch(_ action: Action) {
         queue.sync { [weak self] in
             guard let self else { return }
             dispatch(&state, action)
         }
     }
+    
+    // MARK: - Private Methods
     
     private func dispatch(_ state: inout State, _ action: Action) {
         let effect = reducer.reduce(state: &state, action: action)

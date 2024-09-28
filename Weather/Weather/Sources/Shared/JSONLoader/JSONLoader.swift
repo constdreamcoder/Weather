@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// JSON 파일을 로드(Load)하는 객체
 struct JSONLoader {
     static func loadJSON(from fileName: String) -> Data? {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "json")

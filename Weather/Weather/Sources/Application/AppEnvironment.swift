@@ -8,6 +8,7 @@
 import Foundation
 import Core
 
+/// 의존성 주입을 위한 Environment
 struct AppEnvironment {
     let container = DIContainer.shared
 

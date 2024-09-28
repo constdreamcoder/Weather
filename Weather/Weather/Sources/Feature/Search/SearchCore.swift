@@ -11,6 +11,9 @@ import CoreLocation
 import Core
 
 final class SearchReducer: ReducerProtocol {
+    
+    // MARK: - State, Action
+
     struct State {
         var showingState: ShowingState = .initial
         var isPresented: Bool = false
@@ -36,13 +39,17 @@ final class SearchReducer: ReducerProtocol {
         case fetchComplete(result: WeatherForecastResponse)
         case fetchError(Error)
     }
-    
+
+    // MARK: - Properties
+
     @Inject private var weatherService: WeatherServiceProtocol
     @Inject private var cityService: CityServiceProtocol
     @Inject private var networkMonitor: NetworkMonitoringServiceProtocol
     
     private var totalCityList: [City] = []
     
+    // MARK: - Public Methods
+
     func reduce(state: inout State, action: Action) -> Effect {
         switch action {
         case .startNetworkMonitoring:
@@ -71,12 +78,13 @@ final class SearchReducer: ReducerProtocol {
             
         case .fetchError(let error):
             print("조회 에러: ", error)
-            
         }
         
         return .none
     }
 }
+
+// MARK: - Private Methods
 
 private extension SearchReducer {
     func startNetworkMonitoringEffet() -> Effect {
@@ -149,6 +157,8 @@ private extension SearchReducer {
         state.showingState = .showingResult
     }
 }
+
+// MARK: - ShowingState
 
 extension SearchReducer.State {
     enum ShowingState {

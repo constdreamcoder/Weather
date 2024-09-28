@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 의존성 주입 컨테이너(Dependency Injection Container)
 public final class DIContainer {
     
     private var storage: [String: Any] = [:]

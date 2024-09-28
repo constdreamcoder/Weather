@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 현재 습도 / 구름 / 바람 정보를 보여주는 섹션
 struct MeteorologicalFactorSection: View {
     let result: WeatherForecastResponse?
     
@@ -27,12 +28,13 @@ struct MeteorologicalFactorSection: View {
 
 // MARK: - MeteorologicalFactorUpperSection
 
+/// 현재 습도 / 구름 정보를 보여주는 섹션
 struct MeteorologicalFactorUpperSection: View {
     let model: MeteorologicalFactorUpperSectionModel
     
     var body: some View {
         ForEach(model.meteorologicalFactorsUpperDatas, id: \.id) { factorData in
-            WeatherInfoView(
+            WeatherInfoFrame(
                 factorName: factorData.name,
                 value: "\(factorData.value)%",
                 additionalValue: ""
@@ -41,41 +43,14 @@ struct MeteorologicalFactorUpperSection: View {
     }
 }
 
-struct WeatherInfoView: View {
-    
-    let factorName: String
-    let value: String
-    let additionalValue: String
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(.blue)
-            .aspectRatio(1.0, contentMode: .fit)  // 1:1 비율 유지
-            .overlay(alignment: .topLeading) {
-                Text(factorName)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(16)
-            }
-            .overlay(alignment: .leading) {
-                Text(value)
-                    .font(.largeTitle)
-                    .padding(.horizontal, 18)
-            }
-            .overlay(alignment: .bottomLeading) {
-                Text(additionalValue)
-                    .padding(16)
-            }
-            .foregroundStyle(.white)
-    }
-}
-
 // MARK: - MeteorologicalFactorLowerSection
 
+/// 현재 바람 정보를 보여주는 섹션
 struct MeteorologicalFactorLowerSection: View {
     let model: MeteorologicalFactorLowerSectionModel
     
     var body: some View {
-        WeatherInfoView(
+        WeatherInfoFrame(
             factorName: model.name,
             value: "\(model.value)m/s",
             additionalValue: "\(model.additionalValue)m/s"

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 네트워크 에러 정의
 enum NetworkError: LocalizedError {
     case invalidURL
     case invalidData

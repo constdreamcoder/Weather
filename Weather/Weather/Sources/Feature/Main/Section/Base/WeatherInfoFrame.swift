@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 기상 요소(습도, 구름, 바람) 정보 섹션 기본 Frame
 struct WeatherInfoFrame: View {
     
     let factorName: String
@@ -16,7 +17,7 @@ struct WeatherInfoFrame: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(.blue)
-            .aspectRatio(1.0, contentMode: .fit)  // 1:1 비율 유지
+            .aspectRatio(1.0, contentMode: .fit)
             .overlay(alignment: .topLeading) {
                 Text(factorName)
                     .frame(maxWidth: .infinity, alignment: .leading)

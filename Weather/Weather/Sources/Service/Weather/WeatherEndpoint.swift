@@ -8,7 +8,9 @@
 import Foundation
 import Core
 
+/// 날씨 관련 네트워크 Endpoint 구성
 enum WeatherEndpoint {
+    // 날씨 정보 조회
     case fetchWeatherForecastInfo(lat: Double, lon: Double)
 }
 

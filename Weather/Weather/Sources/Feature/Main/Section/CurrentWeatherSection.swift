@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 현재 도시 날씨 정보를 보여주는 섹션
 struct CurrentWeatherSection: View {
     let model: CurrentWeatherSectionModel
     

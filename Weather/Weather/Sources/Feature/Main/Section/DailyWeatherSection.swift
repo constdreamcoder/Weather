@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 요일별 예보를 보여주는 섹션
 struct DailyWeatherSection: View {
     let model: DailyWeatherSectionModel
     
@@ -27,6 +28,7 @@ struct DailyWeatherSection: View {
     }
 }
 
+/// 하루 날씨 정보를 보여주는 뷰
 struct DailyWeatherView: View {
     let dailyWeatherData: DailyWeatherData
     

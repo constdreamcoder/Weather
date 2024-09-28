@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 기상 요소 중 바람 섹션 데이터 모델
 struct MeteorologicalFactorLowerSectionModel {
     var name: String = ""
     var value: Double = 0
