@@ -14,6 +14,8 @@ struct AppEnvironment {
     func registerDependencies() {
         container.register(NetworkRouter(), type: NetworkRouterProtocol.self)
         
+        container.register(NetworkMonitoringService(), type: NetworkMonitoringServiceProtocol.self)
+        
         container.register(WeatherService(), type: WeatherServiceProtocol.self)
         container.register(CityService(), type: CityServiceProtocol.self)
     }
