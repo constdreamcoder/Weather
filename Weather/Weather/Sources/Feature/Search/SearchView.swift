@@ -31,6 +31,9 @@ struct SearchView: View {
         }
         .background(.blue.opacity(0.6))
         .scrollIndicators(.hidden)
+        .onAppear {
+            store.dispatch(.write(searchText: ""))
+        }
     }
     
     // MARK: - Private Methods
