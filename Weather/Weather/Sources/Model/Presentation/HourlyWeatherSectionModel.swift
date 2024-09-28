@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 시간별 예보 섹션 데이터 모델
 struct HourlyWeatherSectionModel {
     var windGust: Int = 0
     var hourlyWeatherDatas: [HourlyWeatherData] = []

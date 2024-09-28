@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 기상 요소 중 습도, 구름 섹션 데이터 모델
 struct MeteorologicalFactorUpperSectionModel  {
     var meteorologicalFactorsUpperDatas: [MeteorologicalFactorData] = []
     

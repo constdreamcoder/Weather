@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 요일별 예보 섹션 데이터 모델
 struct DailyWeatherSectionModel {
     var dailyWeatherDatas: [DailyWeatherData] = []
     

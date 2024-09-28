@@ -20,7 +20,6 @@ final class DateFormatterManager {
     func unixTimeToFormattedTime(_ unixTime: Int, timeZoneId: String) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
         
-        let dateFormatter = DateFormatterManager.shared.dateFormatter
         dateFormatter.timeZone = TimeZone(identifier: timeZoneId)
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "a h시"
@@ -32,7 +31,6 @@ final class DateFormatterManager {
     func dayOfWeek(from unixTime: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
         
-        let dateFormatter = DateFormatterManager.shared.dateFormatter
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "E"
         

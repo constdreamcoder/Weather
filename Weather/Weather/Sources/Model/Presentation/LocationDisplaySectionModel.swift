@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+/// 도시 위치 표시 섹션 데이터 모델
 struct LocationDisplaySectionModel {
     var coordinate = CLLocationCoordinate2D()
     

@@ -10,6 +10,7 @@ import Foundation
 public typealias HTTPHeaders = [String: String]
 public typealias Parameters = [String: String]
 
+/// Endpoint 구성 타입 정의
 public protocol EndPointType {
     var baseURL: URL { get }
     var path: String { get }
@@ -19,6 +20,8 @@ public protocol EndPointType {
     
     func buildURLRequest() -> URLRequest
 }
+
+// MARK: - build URLRequest 기본구현
 
 extension EndPointType {
     public func buildURLRequest() -> URLRequest {
