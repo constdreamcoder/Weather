@@ -115,7 +115,7 @@ private extension SearchReducer {
     func refreshEffect(_ state: inout State) -> Effect {
         guard state.showingState != .initial else { return .none }
         
-        if state.result == nil, let selectedCity = state.selectedCity {
+        if state.result == nil, state.selectedCity == nil {
             return .publisher(Just(.initialize).eraseToAnyPublisher())
         } else if let selectedCity = state.selectedCity {
             return .publisher(Just(.selectCity(city: selectedCity)).eraseToAnyPublisher())
@@ -128,7 +128,6 @@ private extension SearchReducer {
         state.searchText = searchText
         
         state.filteredCityList = self.totalCityList.filter {
-            let lowercasedSearchText = searchText.lowercased()
             return $0.name.range(of: searchText, options: .caseInsensitive) != nil || searchText == ""
         }
     }
