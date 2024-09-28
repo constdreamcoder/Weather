@@ -128,7 +128,8 @@ private extension SearchReducer {
         state.searchText = searchText
         
         state.filteredCityList = self.totalCityList.filter {
-            $0.name.hasPrefix(searchText) || searchText == ""
+            let lowercasedSearchText = searchText.lowercased()
+            return $0.name.range(of: searchText, options: .caseInsensitive) != nil || searchText == ""
         }
     }
     
