@@ -54,6 +54,8 @@ iOS 사전 과제 - Weather
 - **대소문자 구분 없는 검색**: 대소문자 구분 없이 검색이 가능도록 처리
 - **Query String 파라미터 설정으로 `Overfetching` 방지**: Query String 파라미터 중 `exclude=minutely,alerts` 설정으로 불필요한 `minutely`와 `alerts` 데이터 호출 제외
 - **부드러운 화면 전환을 위한 애니메이션 적용**: 애니메이션을 통한 부드러운 화면 전환으로 사용성 향상
+- **Launch Screen 구현**: 앱 로딩 시간동안 사용자 경험 개선을 위해 구현
+- **Activity Indicator 구현**: 사용자에게 백그라운드 작업이 진행 중임을 알리기 위해 구현
 
 <br>
 
@@ -72,3 +74,4 @@ iOS 사전 과제 - Weather
  - `Propert Wrapper` 활용한 의존성 주입으로 아래 이미지와 같이 코드가 이전보다 더 간소화 되었으며, `Dependency Injection Container` 구현으로 의존성 주입 관리를 보다 일관되게 유지할 수 있었습니다.
 
 ![image](https://github.com/user-attachments/assets/d50e8d6e-9ee3-4c31-a856-73e3e882f0c8)
+
