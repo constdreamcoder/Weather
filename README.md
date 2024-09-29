@@ -32,7 +32,7 @@ iOS 사전 과제 - Weather
 
 | Weather | Core 모듈 |
 | -------- | -------- |
-|<img src="https://github.com/user-attachments/assets/37bde20a-7bc1-4dee-805b-dce79bba21dc" width="240" height="400"/>|<img src="https://github.com/user-attachments/assets/88aa96f1-c4f5-4726-be68-b4d61fc13f16" width="240" height="400"/>|
+|<img src="https://github.com/user-attachments/assets/37bde20a-7bc1-4dee-805b-dce79bba21dc" width="240" height="500"/>|<img src="https://github.com/user-attachments/assets/88aa96f1-c4f5-4726-be68-b4d61fc13f16" width="240" height="400"/>|
 
 <br>
 
