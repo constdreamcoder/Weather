@@ -56,3 +56,19 @@ iOS 사전 과제 - Weather
 - **부드러운 화면 전환을 위한 애니메이션 적용**: 애니메이션을 통한 부드러운 화면 전환으로 사용성 향상
 
 <br>
+
+# 🔥 개발 주요 내용
+
+### 👉 코드 간소화를 위한 Property Wrapper를 활용한 의존성 주입
+
+도입 배경
+
+-  기존 `생성자 의존성 주입 방식`으로는 구현마다 일일히 객체를 생성해 코드가 복잡해져 가독성이 떨어지는 문제가 있었습니다. 이를 개선하고자 Property Wrapper를 도입하였습니다.
+
+![image](https://github.com/user-attachments/assets/689594a4-922a-4c4a-b8fa-d1de2deae243)
+
+도입 결과
+
+ - `Propert Wrapper` 활용한 의존성 주입으로 아래 이미지와 같이 코드가 이전보다 더 간소화 되었으며, `Dependency Injection Container` 구현으로 의존성 주입 관리를 보다 일관되게 유지할 수 있었습니다.
+
+![image](https://github.com/user-attachments/assets/d50e8d6e-9ee3-4c31-a856-73e3e882f0c8)
