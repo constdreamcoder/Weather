@@ -71,7 +71,6 @@ iOS 사전 과제 - Weather
 
 <br>
 
-
 **도입 결과**
 
  - `Propert Wrapper` 활용한 의존성 주입으로 아래 이미지와 같이 코드가 이전보다 더 간소화 되었으며, `Dependency Injection Container` 구현으로 의존성 주입 관리를 보다 일관되게 유지할 수 있었습니다.
@@ -117,8 +116,6 @@ iOS 사전 과제 - Weather
  </div>
   </details>
 
-<br>
-
 ![image](https://github.com/user-attachments/assets/d50e8d6e-9ee3-4c31-a856-73e3e882f0c8)
 
 <br>
@@ -147,9 +144,7 @@ iOS 사전 과제 - Weather
  </div>
 </details>
 
-<br>
-
-![image](https://github.com/user-attachments/assets/246c4100-ed55-45ab-86b0-7f7fe26c4e86)
+![image](https://github.com/user-attachments/assets/bd5af92e-3574-4225-8d50-22243a4bb8fa)
 
 <br>
 
@@ -179,8 +174,5 @@ iOS 사전 과제 - Weather
  </div>
 </details>
 
-<br>
-
-![image](https://github.com/user-attachments/assets/6aca081b-e72a-4b0d-8ff7-7957af4b7200)
-
+![image](https://github.com/user-attachments/assets/f5d46daa-7b0d-4cf9-b03b-1655d6fef064)
 
