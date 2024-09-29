@@ -32,7 +32,7 @@ iOS 사전 과제 - Weather
 
 | Weather | Core 모듈 |
 | -------- | -------- |
-| ![image](https://github.com/qwerty3345/ios-itunes-search/assets/59835351/c64f612b-7b15-42fc-b201-6bc9cefd3d49) | ![image](https://github.com/qwerty3345/ios-itunes-search/assets/59835351/7692e087-4dec-4655-a22a-bd5f90f06538) |
+| ![image](https://github.com/user-attachments/assets/37bde20a-7bc1-4dee-805b-dce79bba21dc) | ![image](https://github.com/user-attachments/assets/88aa96f1-c4f5-4726-be68-b4d61fc13f16) |
 
 <br>
 
@@ -57,7 +57,7 @@ iOS 사전 과제 - Weather
 
 <br>
 
-# 🔥 개발 주요 내용
+# 🔥 주요 내용
 
 ### 👉 코드 간소화를 위한 Property Wrapper를 활용한 의존성 주입
 
