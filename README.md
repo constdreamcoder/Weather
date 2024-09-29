@@ -22,7 +22,7 @@ iOS 사전 과제 - Weather
 - Xcode 15.4
 - Swift 5.10
 - iOS 16 버전
-
+- 라이트 모드 / Portrait Orientation 지원
 
 ## 📂 프로젝트 폴더링 구조
 
